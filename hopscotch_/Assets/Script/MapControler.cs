@@ -6,6 +6,7 @@ public class MapControler : MonoBehaviour
 {
     Tile tile;
 
+    public GameObject _tile;
     // Start is called before the first frame update
     void Start()
     {
