@@ -4,37 +4,44 @@ using UnityEngine;
 
 public class MapControler : MonoBehaviour
 {
-    
-    
-    public GameObject _tile;
 
-    public void LocateTile(int level)     
+    private Vector3[][] MapArr;    
+    public GameObject _tile;
+    
+    public void CreateMapArr(int level) 
     {
         int sidelength = level + 4;
-        
-        for (int i = 0; i <  2 * sidelength-1; i++)
-        {
-            for (int j = 0; j < sidelength+i; j++)
-            {
-                if (j <i)
+        for (int i = 0; i < 2 * sidelength - 1; i++) {
+            for (int j = 0; j < sidelength +i; j++) {
+                if (i < sidelength)
                 {
-                    GameObject maptile = Instantiate(this._tile) as GameObject;
-                    maptile.transform.position = new Vector3((float)0.5 * i - j, 0.0f, (float)0.866 * i);
-
+                    MapArr[i][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * j);
                 }
                 else
                 {
-                    GameObject maptile = Instantiate(this._tile) as GameObject;
-                    maptile.transform.position = new Vector3((float)0.5 * i + j, 0.0f, (float)0.866 * i);
-                    
+                    MapArr[i][j] = MapArr[2 * sidelength - 2 - i][j];
                 }
-            } 
+            }
         }
+
+        
+    }
+    public void LocateTile(Vector3[][] mapArr)     
+    {
+        for (int i = 0; i < mapArr.GetLength(0); i++)
+        {
+            for (int j = 0; j < mapArr.GetLength(1) ; j++) {
+                GameObject maptile = Instantiate(this._tile);
+                maptile.transform.position = mapArr[i][j];
+            }
+        }
+
     }
     // Start is called before the first frame update
-    void Start()
+    void Start()  
     {
-        LocateTile(1);
+        CreateMapArr(1);
+        LocateTile(MapArr);
     }
 
     // Update is called once per frame
