@@ -11,24 +11,32 @@ public class MapControler : MonoBehaviour
     public void CreateMapArr(int level) 
     {
         
-        int sidelength = level + 4;
-        int height = 2 * sidelength - 1;
+        int sidelength = level + 2;
+        int height = 2 * sidelength - 1; //5
         MapArr = new Vector3[height][];
-        for (int i = 0; i < height; i++) {
-            
-            for (int j = 0; j < sidelength +i; j++) {
+        for (int i = 0; i < sidelength; i++)
+        {
+            MapArr[i] = new Vector3[sidelength + i];
+            MapArr[height - i - 1] = new Vector3[sidelength + i];
+            for (int j = 0; j < sidelength +i; j++)
+            {
                 if (i <= sidelength)
-                {
-                    MapArr[i] = new Vector3[sidelength + i];
-                    MapArr[i][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * j);
+                {                    
+                    MapArr[i][j] = new Vector3(-1.0f * i + j, 0.0f, 0.866f * j);
+                    MapArr[height-i-1][j] = new Vector3(-1.0f * (height-i-1) + j, 0.0f, 0.866f * j);
                 }
-                else
-                {
-                    MapArr[i] = new Vector3[MapArr[height-1].Length];
-                    MapArr[i][j] = MapArr[2 * sidelength -i][j];
-                }
+             
             }
         }
+
+        /*        0 ****
+         *        1*****
+         *       2******
+         *       3*******
+         *       4******
+         *       5*****
+         *       6****
+         *       */
 
         
     }
