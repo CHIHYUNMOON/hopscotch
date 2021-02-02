@@ -7,36 +7,30 @@ public class MapControler : MonoBehaviour
 
     private Vector3[][] MapArr;    
     public GameObject _tile;
+    private int _sidelength;
     
     public void CreateMapArr(int level) 
     {
         
-        int sidelength = level + 2;
-        int height = 2 * sidelength - 1; //5
+        _sidelength = level + 4;
+        int height = 2 * _sidelength - 1; //5
         MapArr = new Vector3[height][];
-        for (int i = 0; i < sidelength; i++)
+        for (int i = 0; i < _sidelength; i++)
         {
-            MapArr[i] = new Vector3[sidelength + i];
-            MapArr[height - i - 1] = new Vector3[sidelength + i];
-            for (int j = 0; j < sidelength +i; j++)
+            MapArr[i] = new Vector3[_sidelength + i];
+            MapArr[height - i - 1] = new Vector3[_sidelength + i];
+            for (int j = 0; j < _sidelength +i; j++)
             {
-                if (i <= sidelength)
+                if (i <= _sidelength)
                 {                    
-                    MapArr[i][j] = new Vector3(-1.0f * i + j, 0.0f, 0.866f * j);
-                    MapArr[height-i-1][j] = new Vector3(-1.0f * (height-i-1) + j, 0.0f, 0.866f * j);
+                    MapArr[i][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * i);
+                    MapArr[height-i-1][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * (height-i-1));
                 }
              
             }
         }
 
-        /*        0 ****
-         *        1*****
-         *       2******
-         *       3*******
-         *       4******
-         *       5*****
-         *       6****
-         *       */
+   
 
         
     }
@@ -45,8 +39,14 @@ public class MapControler : MonoBehaviour
         for (int i = 0; i < mapArr.Length; i++)
         {
             for (int j = 0; j < mapArr[i].Length ; j++) {
-                GameObject maptile = Instantiate(this._tile);
-                maptile.transform.position = mapArr[i][j];
+                
+                if (i != _sidelength - 1 || j != _sidelength - 1) { 
+                    
+                    GameObject maptile = Instantiate(this._tile);
+                    maptile.transform.position = mapArr[i][j];
+                
+                }
+                
             }
         }
 
