@@ -6,14 +6,14 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public int _score;
-    Color[] _tileColor = {Color.red , Color.green, Color.blue };
+    public Color[] _tileColor;
     Renderer _tileRenderer;
     
     Tile(Vector3 Tilelocation) {
-        _score = UnityEngine.Random.Range(1, 6);
+       /* _score = UnityEngine.Random.Range(1, 6);
         transform.position = Tilelocation;
         _tileRenderer = gameObject.GetComponent<Renderer>();
-        _tileRenderer.material.color = _tileColor[UnityEngine.Random.Range(0, 3)];
+        _tileRenderer.material.color = _tileColor[UnityEngine.Random.Range(0, 3)];*/
     }
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour
         _score = UnityEngine.Random.Range(1, 6);
         //transform.position = Tilelocation;
         _tileRenderer = gameObject.GetComponent<Renderer>();
-        _tileRenderer.material.color = _tileColor[UnityEngine.Random.Range(0, 3)];
+       _tileRenderer.material.color = _tileColor[UnityEngine.Random.Range(0, 3)];
 
     }
 
