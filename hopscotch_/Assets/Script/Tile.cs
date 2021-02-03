@@ -5,25 +5,27 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public int _score;
-    public Color[] _tileColor;
-    Renderer _tileRenderer;
-    
-    Tile(Vector3 Tilelocation) {
-       /* _score = UnityEngine.Random.Range(1, 6);
-        transform.position = Tilelocation;
-        _tileRenderer = gameObject.GetComponent<Renderer>();
-        _tileRenderer.material.color = _tileColor[UnityEngine.Random.Range(0, 3)];*/
+    private int _score;
+    public GameObject _ScoreText;
+    TextMesh TileText;
+    private void Awake()
+    {
+        _score = UnityEngine.Random.Range(1, 6);
+        _ScoreText = Instantiate(_ScoreText);
+        _ScoreText.transform.parent =gameObject.transform;
+        TileText = _ScoreText.GetComponent<TextMesh>();
+        TileText.text = _score.ToString();
     }
 
+    private void Occupied() {
+
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
-        _score = UnityEngine.Random.Range(1, 6);
-        //transform.position = Tilelocation;
-        _tileRenderer = gameObject.GetComponent<Renderer>();
-       _tileRenderer.material.color = _tileColor[UnityEngine.Random.Range(0, 3)];
-
+        
+       
     }
 
     // Update is called once per frame

@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapControler : MonoBehaviour
+public class MapController : MonoBehaviour
 {
 
     private Vector3[][] MapArr;    
-    public GameObject _tile;
+    public GameObject[] _tile;
     private int _sidelength;
     
     public void CreateMapArr(int level) 
     {
         
         _sidelength = level + 4;
-        int height = 2 * _sidelength - 1; //5
+        int height = 2 * _sidelength - 1; 
         MapArr = new Vector3[height][];
         for (int i = 0; i < _sidelength; i++)
         {
@@ -42,7 +42,7 @@ public class MapControler : MonoBehaviour
                 
                 if (i != _sidelength - 1 || j != _sidelength - 1) { 
                     
-                    GameObject maptile = Instantiate(_tile);
+                    GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0,_tile.Length)]);
                     maptile.transform.position = mapArr[i][j];
                 
                 }
