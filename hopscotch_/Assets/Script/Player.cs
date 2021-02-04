@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int _playerScore;
-
+    public int _playerScore =0;
+    private bool _isYourTurn = true;
+    
+    private void PickStarting()
+    {
+        
+           
+    }
     
     
     

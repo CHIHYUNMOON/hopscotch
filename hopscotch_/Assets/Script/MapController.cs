@@ -29,33 +29,46 @@ public class MapController : MonoBehaviour
              
             }
         }
-
-   
-
-        
-    }
-    public void LocateTile(Vector3[][] mapArr)     
-    {
-        for (int i = 0; i < mapArr.Length; i++)
+        for (int i = 0; i < MapArr.Length; i++)
         {
-            for (int j = 0; j < mapArr[i].Length ; j++) {
-                
-                if (i != _sidelength - 1 || j != _sidelength - 1) { 
-                    
-                    GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0,_tile.Length)]);
-                    maptile.transform.position = mapArr[i][j];
-                
+            for (int j = 0; j < MapArr[i].Length; j++)
+            {
+
+                if (i != _sidelength - 1 || j != _sidelength - 1)
+                {
+
+                    GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);
+                    maptile.transform.position = MapArr[i][j];
+
                 }
-                
+
             }
         }
 
+
+
     }
+    //public void LocateTile(Vector3[][] mapArr)     
+    //{
+    //    for (int i = 0; i < mapArr.Length; i++)
+    //    {
+    //        for (int j = 0; j < mapArr[i].Length ; j++) {
+                
+    //            if (i != _sidelength - 1 || j != _sidelength - 1) { 
+                    
+    //                GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0,_tile.Length)]);
+    //                maptile.transform.position = mapArr[i][j];
+                
+    //            }
+                
+    //        }
+    //    }
+
+    //}
     // Start is called before the first frame update
     void Start()  
     {
         CreateMapArr(1);
-        LocateTile(MapArr);
     }
 
     // Update is called once per frame

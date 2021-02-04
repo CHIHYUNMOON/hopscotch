@@ -7,7 +7,12 @@ public class Tile : MonoBehaviour
 {
     private int _score;
     public GameObject _ScoreText;
+    public Player _player;
+    Renderer Renderer;
     TextMesh TileText;
+
+    private bool _isOccupied = false;
+
     private void Awake()
     {
         _score = UnityEngine.Random.Range(1, 6);
@@ -17,9 +22,12 @@ public class Tile : MonoBehaviour
         TileText.text = _score.ToString();
     }
 
-    private void Occupied() {
-
-        
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player") {
+            _player._playerScore += _score;
+            _isOccupied = true;
+        }
     }
     // Start is called before the first frame update
     void Start()
