@@ -34,7 +34,7 @@ public class MapController : MonoBehaviour
             for (int j = 0; j < MapArr[i].Length; j++)
             {
 
-                if (i != _sidelength - 1 || j != _sidelength - 1)
+                if (i != _sidelength - 1 || j != _sidelength - 1) //총 타일 개수를 짝수로 맞춰주기 위해 가운데 타일은 빼 준다.
                 {
 
                     GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);

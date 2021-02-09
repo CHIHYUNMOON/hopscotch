@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private int _score;
+    public int _score;
     public GameObject _ScoreText;
     public Player _player;
     Renderer Renderer;
     TextMesh TileText;
 
-    private bool _isOccupied = false;
+    public bool _isOccupied = false;
 
     private void Awake()
     {
@@ -22,10 +22,10 @@ public class Tile : MonoBehaviour
         TileText.text = _score.ToString();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Player") {
-            _player._playerScore += _score;
+        if (other.gameObject.CompareTag("Player") ) {
+            
             _isOccupied = true;
         }
     }
