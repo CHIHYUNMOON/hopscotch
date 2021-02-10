@@ -7,8 +7,13 @@ public class Player : MonoBehaviour
     public int _playerScore =0;
     private bool _isYourTurn = true;
     Tile _tile;
+    MapController MapController;
+
+
+    
     private void PickStarting()
     {
+        
         
            
     }
@@ -17,6 +22,11 @@ public class Player : MonoBehaviour
         
 
     }
+    public void CheckTurn() {
+
+
+    }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("MapTile")) {

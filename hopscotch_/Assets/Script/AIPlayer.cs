@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIPlayer : Player
 {
+    
     // Start is called before the first frame update
     void Start()
     {

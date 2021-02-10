@@ -20,6 +20,7 @@ public class Tile : MonoBehaviour
         _ScoreText.transform.parent =gameObject.transform;
         TileText = _ScoreText.GetComponent<TextMesh>();
         TileText.text = _score.ToString();
+        Renderer = GetComponent<Renderer>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -27,6 +28,12 @@ public class Tile : MonoBehaviour
         if (other.gameObject.CompareTag("Player") ) {
             
             _isOccupied = true;
+            
+            Renderer.material.color = Color.red;
+        }
+        if (other.gameObject.CompareTag("AIPlayer")) {
+            _isOccupied = true;
+            Renderer.material.color = Color.blue;
         }
     }
     // Start is called before the first frame update

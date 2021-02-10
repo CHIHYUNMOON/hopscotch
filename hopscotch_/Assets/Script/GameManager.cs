@@ -8,8 +8,18 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject AIPlayer;
 
-   private int _level = 1;
+    private int _level = 1;
+    private int _turnNumber = 1;
+    private int _numberOfPlayer = 2;
 
+    public void ChangeTurn() {
+           
+    }
+
+    void Awake()
+    {
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
