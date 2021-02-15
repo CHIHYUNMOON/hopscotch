@@ -11,9 +11,14 @@ public class GameManager : MonoBehaviour
     private int _level = 1;
     private int _turnNumber = 1;
     private int _numberOfPlayer = 2;
+   
 
     public void ChangeTurn() {
-           
+        int checkPlayerBehavior = 1;
+        while (checkPlayerBehavior < _numberOfPlayer) {
+            checkPlayerBehavior++;
+        }
+        _turnNumber++;
     }
 
     void Awake()

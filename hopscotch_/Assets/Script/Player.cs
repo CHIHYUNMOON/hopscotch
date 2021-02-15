@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private bool _isYourTurn = true;
     Tile _tile;
     MapController MapController;
-
+    public GameObject TileCanSelect;
 
     
     private void PickStarting()
@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         
            
     }
-
+    
     private void PickNextTile() {
         
 
@@ -26,7 +26,10 @@ public class Player : MonoBehaviour
 
 
     }
-    
+    private void OnMouseDown()
+    {
+     
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("MapTile")) {

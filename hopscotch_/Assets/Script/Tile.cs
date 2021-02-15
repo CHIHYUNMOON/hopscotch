@@ -7,10 +7,10 @@ public class Tile : MonoBehaviour
 {
     public int _score;
     public GameObject _ScoreText;
-    public Player _player;
+    public GameObject _player;
     Renderer Renderer;
     TextMesh TileText;
-
+    Vector3 playerlocation;
     public bool _isOccupied = false;
 
     private void Awake()
@@ -21,8 +21,20 @@ public class Tile : MonoBehaviour
         TileText = _ScoreText.GetComponent<TextMesh>();
         TileText.text = _score.ToString();
         Renderer = GetComponent<Renderer>();
+        _player = GameObject.Find("Player");       
     }
 
+    private void OnMouseDown()
+    {
+        if ((this.transform.position - _player.transform.position).sqrMagnitude <= 2.0f) //Distance between tiles is about 1.0f
+        {
+            if (!_isOccupied)
+            {
+                _player.transform.position = this.transform.position + Vector3.up * 0.5f;
+            }
+        }
+
+    }
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") ) {
@@ -36,14 +48,14 @@ public class Tile : MonoBehaviour
             Renderer.material.color = Color.blue;
         }
     }
-    // Start is called before the first frame update
+    
     void Start()
     {
         
        
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
