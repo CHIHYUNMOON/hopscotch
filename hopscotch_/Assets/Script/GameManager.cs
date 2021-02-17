@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
     public GameObject AIPlayer;
 
     private int _level = 1;
-    private int _turnNumber = 1;
+    public static int _turnNumber = 0;
     private int _numberOfPlayer = 2;
-   
 
+    
     public void ChangeTurn() {
         int checkPlayerBehavior = 1;
         while (checkPlayerBehavior < _numberOfPlayer) {
@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         
+        
     }
+   
     // Start is called before the first frame update
     void Start()
     {

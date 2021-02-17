@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public int _score;
     public GameObject _ScoreText;
     public GameObject _player;
+    private GameManager _gameManager;
     Renderer Renderer;
     TextMesh TileText;
     Vector3 playerlocation;
@@ -19,18 +20,25 @@ public class Tile : MonoBehaviour
         _ScoreText = Instantiate(_ScoreText);
         _ScoreText.transform.parent =gameObject.transform;
         TileText = _ScoreText.GetComponent<TextMesh>();
-        TileText.text = _score.ToString();
+        TileText.text = _score.ToString();  
         Renderer = GetComponent<Renderer>();
-        _player = GameObject.Find("Player");       
+        
+        
     }
-
+    
     private void OnMouseDown()
     {
-        if ((this.transform.position - _player.transform.position).sqrMagnitude <= 2.0f) //Distance between tiles is about 1.0f
+        if (GameManager._turnNumber == 0) {
+            _player = Instantiate(_player);
+            _player.transform.position = this.transform.position + Vector3.up * 1.0f;
+            GameManager._turnNumber++;
+        }
+        else if ((this.transform.position - _player.GetComponent<Player>()._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber>0) //Distance between tiles is about 1.0f
         {
             if (!_isOccupied)
             {
                 _player.transform.position = this.transform.position + Vector3.up * 0.5f;
+                GameManager._turnNumber++;
             }
         }
 
@@ -38,15 +46,13 @@ public class Tile : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") ) {
-            
-            _isOccupied = true;
-            
             Renderer.material.color = Color.red;
         }
-        if (other.gameObject.CompareTag("AIPlayer")) {
-            _isOccupied = true;
+        if (other.gameObject.CompareTag("AIPlayer")) {            
             Renderer.material.color = Color.blue;
         }
+
+        _isOccupied = true;
     }
     
     void Start()

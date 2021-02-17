@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int _playerScore =0;
+    public int _playerScore = 0;
     private bool _isYourTurn = true;
-    Tile _tile;
+    GameObject _tile;
+    public GameObject _Tile { get { return _tile; } }   
     MapController MapController;
-    public GameObject TileCanSelect;
+    
 
     
-    private void PickStarting()
-    {
-        
-        
-           
-    }
+    
     
     private void PickNextTile() {
         
@@ -26,17 +22,15 @@ public class Player : MonoBehaviour
 
 
     }
-    private void OnMouseDown()
-    {
-     
-    }
+    
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("MapTile")) {
-            _tile = collision.gameObject.GetComponent<Tile>();
-            if (!_tile._isOccupied)
+            _tile = collision.gameObject;
+            if (!_tile.GetComponent<Tile>()._isOccupied)
             {
-                _playerScore += _tile._score;
+                _playerScore += _tile.GetComponent<Tile>()._score;
             }
         }
     }
