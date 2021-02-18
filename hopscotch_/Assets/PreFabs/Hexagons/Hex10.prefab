@@ -110,5 +110,5 @@ MonoBehaviour:
   _score: 0
   _ScoreText: {fileID: 841651491479493795, guid: b7c1924b6d06baf418dd7cb21f320d52,
     type: 3}
-  _player: {fileID: 6414435131530344221, guid: d8123b1b7f39be04ea9b11cc44d63bff, type: 3}
+  _player: {fileID: 1824862833213344918, guid: d8123b1b7f39be04ea9b11cc44d63bff, type: 3}
   _isOccupied: 0

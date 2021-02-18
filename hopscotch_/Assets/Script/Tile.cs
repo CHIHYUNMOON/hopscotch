@@ -6,6 +6,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public int _score;
+
     public GameObject _ScoreText;
     public GameObject _player;
     private GameManager _gameManager;
@@ -32,13 +33,15 @@ public class Tile : MonoBehaviour
             _player = Instantiate(_player);
             _player.transform.position = this.transform.position + Vector3.up * 1.0f;
             GameManager._turnNumber++;
+            Player._isYourTurn = false;
         }
-        else if ((this.transform.position - _player.GetComponent<Player>()._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber>0) //Distance between tiles is about 1.0f
+        else if ((this.transform.position - Player._Inst._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber>0) //Distance between tiles is about 1.0f
         {
             if (!_isOccupied)
             {
-                _player.transform.position = this.transform.position + Vector3.up * 0.5f;
+                Player._Inst.transform.position = this.transform.position + Vector3.up * 1.0f;
                 GameManager._turnNumber++;
+                Player._isYourTurn = false;
             }
         }
 

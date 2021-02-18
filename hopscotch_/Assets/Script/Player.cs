@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int _playerScore = 0;
-    private bool _isYourTurn = true;
+    //------------------------------------------
+    static Player _inst;
+    public static Player _Inst { get { return _inst; } }
+    //------------------------------------------
+    
     GameObject _tile;
     public GameObject _Tile { get { return _tile; } }   
     MapController MapController;
-    
-
-    
-    
-    
+    //------------------------------------------
+    public int _playerScore = 0;
+    public static bool _isYourTurn = true;
+    private void Awake()
+    {
+        _inst = this;
+    }
+    //------------------------------------------
     private void PickNextTile() {
         
 
@@ -24,7 +30,7 @@ public class Player : MonoBehaviour
     }
     
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("MapTile")) {
             _tile = collision.gameObject;

@@ -5,11 +5,12 @@ using UnityEngine;
 public class MapController : MonoBehaviour
 {
 
-    private Vector3[][] MapArr;    
+    private Vector3[][] MapArr;
+    public Vector3[][] _MapArr { get { return MapArr; } }
     public GameObject[] _tile;
     private int _sidelength;
     public bool[][] _isOccupied;
-
+    
 
     public void CreateMapArr(int level) 
     {        
@@ -56,7 +57,7 @@ public class MapController : MonoBehaviour
     }
     private void Awake()
     {
-        CreateMapArr(1);
+        CreateMapArr(1);      
     }
     void Start()  
     {
