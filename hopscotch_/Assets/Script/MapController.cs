@@ -8,9 +8,11 @@ public class MapController : MonoBehaviour
     private Vector3[][] MapArr;
     public Vector3[][] _MapArr { get { return MapArr; } }
     public GameObject[] _tile;
+    public GameObject AIPlayer;
     private int _sidelength;
     public bool[][] _isOccupied;
-    
+    private int[] AIFirstLocationIndex;
+    public int[] _AIFirstLocationIndex { get { return AIFirstLocationIndex; } }
 
     public void CreateMapArr(int level) 
     {        
@@ -46,18 +48,27 @@ public class MapController : MonoBehaviour
 
                     GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);
                     maptile.transform.position = MapArr[i][j];
-                    
+
                 }
 
             }
         }
-
-        
+    }
+    private void CreateAI()
+    {
+        if (!Player._isYourTurn && GameManager._turnNumber ==1) {
+            GameManager._turnNumber++;
+            AIFirstLocationIndex = new int[2] { UnityEngine.Random.Range(0, 2 * _sidelength),UnityEngine.Random.Range(0, _sidelength) };
+            AIPlayer = Instantiate(AIPlayer);
+            AIPlayer.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;
+            
+        }
 
     }
+
     private void Awake()
     {
-        CreateMapArr(1);      
+        CreateMapArr(GameManager._Level);      
     }
     void Start()  
     {
@@ -67,6 +78,7 @@ public class MapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-   
+        Invoke("CreateAI", 3.0f);
+        
     }
 }

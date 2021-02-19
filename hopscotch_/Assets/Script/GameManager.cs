@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject AIPlayer;
 
-    private int _level = 1;
+    private static int _level = 1;
+    public static int _Level  { get { return _level; } }
     public static int _turnNumber = 0;
     private int _numberOfPlayer = 2;
 

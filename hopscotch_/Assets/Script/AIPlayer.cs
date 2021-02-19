@@ -9,7 +9,7 @@ public class AIPlayer : Player
     
     private void AIMove() {
         if (!_isYourTurn) {
-            
+            //this.transform.position = _MapController._MapArr;
             _isYourTurn = true;
         }
     }
