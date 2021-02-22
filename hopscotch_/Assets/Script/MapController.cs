@@ -58,7 +58,10 @@ public class MapController : MonoBehaviour
     {
         if (!Player._isYourTurn && GameManager._turnNumber ==1) {
             GameManager._turnNumber++;
-            AIFirstLocationIndex = new int[2] { UnityEngine.Random.Range(0, 2 * _sidelength),UnityEngine.Random.Range(0, _sidelength) };
+            AIFirstLocationIndex = new int[2] { UnityEngine.Random.Range(0, 2 * _sidelength-1),UnityEngine.Random.Range(0, _sidelength) };
+            if (AIFirstLocationIndex[0] == AIFirstLocationIndex[1]) {
+                AIFirstLocationIndex = new int[2] { UnityEngine.Random.Range(0, 2 * _sidelength), UnityEngine.Random.Range(0, _sidelength) };
+            }
             AIPlayer = Instantiate(AIPlayer);
             AIPlayer.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;
             

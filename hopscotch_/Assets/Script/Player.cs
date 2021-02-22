@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
     static Player _inst;
     public static Player _Inst { get { return _inst; } }
     //------------------------------------------
-    
-    GameObject _tile;
+    public UIManager uIManager;
+    protected GameObject _tile;
     public GameObject _Tile { get { return _tile; } }   
     MapController MapController;
     //------------------------------------------
@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
             if (!_tile.GetComponent<Tile>()._isOccupied)
             {
                 _playerScore += _tile.GetComponent<Tile>()._score;
+                
             }
         }
     }

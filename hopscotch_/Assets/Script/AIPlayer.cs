@@ -6,10 +6,12 @@ public class AIPlayer : Player
 {
     
     MapController _MapController;
-    
+    private int[] AILocationIndex;
+
     private void AIMove() {
         if (!_isYourTurn) {
-            //this.transform.position = _MapController._MapArr;
+            //if(_tile.transform.posit
+            this.transform.position = _MapController._MapArr[AILocationIndex[0]][AILocationIndex[1]] + Vector3.up *1.0f;
             _isYourTurn = true;
         }
     }
@@ -23,6 +25,7 @@ public class AIPlayer : Player
     {
        
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
+        AILocationIndex = _MapController._AIFirstLocationIndex;
     }
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,6 @@ public class AIPlayer : Player
     // Update is called once per frame
     void Update()
     {
-        AIMove();
+        Invoke("AIMove", 2.0f);
     }
 }
