@@ -7,13 +7,17 @@ public class AIPlayer : Player
     
     MapController _MapController;
     private int[] AILocationIndex;
-    private List<Tile> _TileCanMove;
+    
 
     private void AIMove() {
         if (!_isYourTurn) {
-            while(_tile.transform.position - )
-            this.transform.position = _MapController._MapArr[AILocationIndex[0]][AILocationIndex[1]] + Vector3.up *1.0f;
-            _isYourTurn = true;
+            
+            while (!_MapController._isOccupied[AILocationIndex[0]][AILocationIndex[1]])
+            {
+                this.transform.position = _MapController._MapTile[AILocationIndex[0]][AILocationIndex[1]].transform.position + Vector3.up * 1.0f;
+                _isYourTurn = true;
+            }
+            
         }
     }
 
@@ -22,6 +26,9 @@ public class AIPlayer : Player
         base.OnCollisionEnter(collision);
     }
 
+    private void CheckTileCanMove() {
+        
+    }
     private void Awake()
     {
        

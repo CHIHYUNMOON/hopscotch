@@ -8,6 +8,8 @@ public class MapController : MonoBehaviour
     private Vector3[][] MapArr;
     public Vector3[][] _MapArr { get { return MapArr; } }
     public GameObject[] _tile;
+    private GameObject[][] _mapTile;
+    public GameObject[][] _MapTile { get { return _mapTile; } }
     public GameObject AIPlayer;
     private int _sidelength;
     public bool[][] _isOccupied;
@@ -20,13 +22,17 @@ public class MapController : MonoBehaviour
         int height = 2 * _sidelength - 1; 
         MapArr = new Vector3[height][];
         _isOccupied = new bool[height][];
+        _mapTile = new GameObject[height][];
         for (int i = 0; i < _sidelength; i++)
         {
             MapArr[i] = new Vector3[_sidelength + i];
             MapArr[height - i - 1] = new Vector3[_sidelength + i];
+            //-----------------------------------------------
             _isOccupied[i] = new bool[_sidelength + i];
             _isOccupied[height - i - 1] = new bool[_sidelength + i];
-
+            //-----------------------------------------------
+            _mapTile[i] = new GameObject[_sidelength + i];
+            _mapTile[height - i - 1] = new GameObject[_sidelength + i];
             for (int j = 0; j < _sidelength +i; j++)
             {
                 if (i <= _sidelength)
@@ -46,8 +52,8 @@ public class MapController : MonoBehaviour
                 if (i != _sidelength - 1 || j != _sidelength - 1) //총 타일 개수를 짝수로 맞춰주기 위해 가운데 타일은 빼 준다.
                 {
 
-                    GameObject maptile = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);
-                    maptile.transform.position = MapArr[i][j];
+                    _mapTile[i][j] = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);
+                    _mapTile[i][j].transform.position = MapArr[i][j];
 
                 }
 
