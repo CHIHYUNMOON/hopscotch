@@ -7,10 +7,11 @@ public class AIPlayer : Player
     
     MapController _MapController;
     private int[] AILocationIndex;
+    private List<Tile> _TileCanMove;
 
     private void AIMove() {
         if (!_isYourTurn) {
-            //if(_tile.transform.posit
+            while(_tile.transform.position - )
             this.transform.position = _MapController._MapArr[AILocationIndex[0]][AILocationIndex[1]] + Vector3.up *1.0f;
             _isYourTurn = true;
         }

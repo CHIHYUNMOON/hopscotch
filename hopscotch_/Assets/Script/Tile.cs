@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
 
     public GameObject _ScoreText;
     public GameObject _player;
+    
     private GameManager _gameManager;
     Renderer Renderer;
     TextMesh TileText;

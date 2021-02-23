@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public UIManager uIManager;
     protected GameObject _tile;
     public GameObject _Tile { get { return _tile; } }   
+
     MapController MapController;
     //------------------------------------------
     public int _playerScore = 0;
