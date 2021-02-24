@@ -36,30 +36,36 @@ public class Tile : MonoBehaviour
             {
                 _player = Instantiate(_player);
                 _player.transform.position = this.transform.position + Vector3.up * 1.0f;
-                GameManager._turnNumber++;
-                Player._isYourTurn = false;
+                
+                
             }
             else if ((this.transform.position - Player._Inst._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
             {
                 if (!_isOccupied)
                 {
                     Player._Inst.transform.position = this.transform.position + Vector3.up * 1.0f;
-                    GameManager._turnNumber++;
-                    Player._isYourTurn = false;
+                               
                 }
             }
         }
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") ) {
-            Renderer.material.color = Color.red;
-        }
-        if (other.gameObject.CompareTag("AIPlayer")) {            
-            Renderer.material.color = Color.blue;
-        }
+        if (!_isOccupied)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                Renderer.material.color = Color.red;
+            }
+            if (other.gameObject.CompareTag("AIPlayer"))
+            {
+                Renderer.material.color = Color.blue;
+            }
 
-        _isOccupied = true;
+            _isOccupied = true;         
+        }
+        Player._isYourTurn = !Player._isYourTurn;
+        GameManager._turnNumber++;
     }
     
     void Start()

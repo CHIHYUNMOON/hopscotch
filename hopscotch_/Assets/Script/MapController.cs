@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-
+    //----------------------------------------------------------
     private Vector3[][] MapArr;
     public Vector3[][] _MapArr { get { return MapArr; } }
+    //----------------------------------------------------------
     public GameObject[] _tile;
     private GameObject[][] _mapTile;
     public GameObject[][] _MapTile { get { return _mapTile; } }
+    //----------------------------------------------------------
     public GameObject AIPlayer;
+    //----------------------------------------------------------
     private int _sidelength;
-    public bool[][] _isOccupied;
+    int[] _mapSize = new int[] {5, 6, 7, 8, 9, 8, 7, 6, 5 };
+    public int[] _MapSize { get { return _mapSize; } }
+
+   
     private int[] AIFirstLocationIndex;
     public int[] _AIFirstLocationIndex { get { return AIFirstLocationIndex; } }
 
@@ -20,16 +26,16 @@ public class MapController : MonoBehaviour
     {        
         _sidelength = level + 4;
         int height = 2 * _sidelength - 1; 
-        MapArr = new Vector3[height][];
-        _isOccupied = new bool[height][];
+        MapArr = new Vector3[height][];   
         _mapTile = new GameObject[height][];
+        
+
         for (int i = 0; i < _sidelength; i++)
         {
             MapArr[i] = new Vector3[_sidelength + i];
             MapArr[height - i - 1] = new Vector3[_sidelength + i];
             //-----------------------------------------------
-            _isOccupied[i] = new bool[_sidelength + i];
-            _isOccupied[height - i - 1] = new bool[_sidelength + i];
+            
             //-----------------------------------------------
             _mapTile[i] = new GameObject[_sidelength + i];
             _mapTile[height - i - 1] = new GameObject[_sidelength + i];
@@ -39,24 +45,16 @@ public class MapController : MonoBehaviour
                 {                    
                     MapArr[i][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * i);
                     MapArr[height-i-1][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * (height-i-1));
-                    _isOccupied[i][j] = false;
-                    _isOccupied[height - i - 1][j] = false;
+                   
                 }     
             }
         }
         for (int i = 0; i < MapArr.Length; i++)
         {
             for (int j = 0; j < MapArr[i].Length; j++)
-            {
-
-                if (i != _sidelength - 1 || j != _sidelength - 1) //총 타일 개수를 짝수로 맞춰주기 위해 가운데 타일은 빼 준다.
-                {
-
+            {        
                     _mapTile[i][j] = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);
                     _mapTile[i][j].transform.position = MapArr[i][j];
-
-                }
-
             }
         }
     }
@@ -64,10 +62,10 @@ public class MapController : MonoBehaviour
     {
         if (!Player._isYourTurn && GameManager._turnNumber ==1) {
             GameManager._turnNumber++;
-            AIFirstLocationIndex = new int[2] { UnityEngine.Random.Range(0, 2 * _sidelength-1),UnityEngine.Random.Range(0, _sidelength) };
-            if (AIFirstLocationIndex[0] == AIFirstLocationIndex[1]) {
-                AIFirstLocationIndex = new int[2] { UnityEngine.Random.Range(0, 2 * _sidelength), UnityEngine.Random.Range(0, _sidelength) };
-            }
+            AIFirstLocationIndex = new int[2];
+            AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length + 1);
+            AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]] + 1);
+            //------------------------------------------------------------------------    
             AIPlayer = Instantiate(AIPlayer);
             AIPlayer.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;
             
