@@ -15,6 +15,8 @@ public class Tile : MonoBehaviour
     TextMesh TileText;
     Vector3 playerlocation;
     public bool _isOccupied = false;
+    private MapController _mapController;
+    private AIPlayer aIPlayer;
 
     private void Awake()
     {
@@ -24,7 +26,7 @@ public class Tile : MonoBehaviour
         TileText = _ScoreText.GetComponent<TextMesh>();
         TileText.text = _score.ToString();  
         Renderer = GetComponent<Renderer>();
-        
+        _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         
     }
     
@@ -36,15 +38,16 @@ public class Tile : MonoBehaviour
             {
                 _player = Instantiate(_player);
                 _player.transform.position = this.transform.position + Vector3.up * 1.0f;
-                
-                
+
+                _mapController.CreateAI();
             }
             else if ((this.transform.position - Player._Inst._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
             {
                 if (!_isOccupied)
                 {
                     Player._Inst.transform.position = this.transform.position + Vector3.up * 1.0f;
-                               
+                    aIPlayer = GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>();
+                    aIPlayer.AIMove();
                 }
             }
         }

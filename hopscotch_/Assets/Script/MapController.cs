@@ -58,13 +58,13 @@ public class MapController : MonoBehaviour
             }
         }
     }
-    private void CreateAI()
+    public void CreateAI()
     {
-        if (!Player._isYourTurn && GameManager._turnNumber ==1) {
+        if (GameManager._turnNumber ==0) {
             GameManager._turnNumber++;
             AIFirstLocationIndex = new int[2];
-            AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length + 1);
-            AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]] + 1);
+            AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
+            AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
             //------------------------------------------------------------------------    
             AIPlayer = Instantiate(AIPlayer);
             AIPlayer.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;
@@ -85,7 +85,7 @@ public class MapController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Invoke("CreateAI", 3.0f);
+        
         
     }
 }
