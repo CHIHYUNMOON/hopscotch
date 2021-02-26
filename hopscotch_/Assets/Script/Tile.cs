@@ -71,15 +71,5 @@ public class Tile : MonoBehaviour
         GameManager._turnNumber++;
     }
     
-    void Start()
-    {
-        
-       
-    }
 
-    
-    void Update()
-    {
-        
-    }
 }
