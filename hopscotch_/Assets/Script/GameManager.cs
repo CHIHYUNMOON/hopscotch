@@ -8,20 +8,20 @@ public class GameManager : MonoBehaviour
     public MapController mapController;
     public GameObject Player;
     public GameObject AIPlayer;
-    
+    public static int _turnNumber=0;
 
     private static int _level = 1;
     public static int _Level  { get { return _level; } }
-    public static int _turnNumber = 0;
-    private int _numberOfPlayer = 2;
 
+
+
+    public void GetPlayers() {
+        Player = GameObject.Find("Player(Clone)");
+        AIPlayer = GameObject.Find("AIPlayer(Clone)");
+    }
     
-    public void ChangeTurn() {
-        int checkPlayerBehavior = 1;
-        while (checkPlayerBehavior < _numberOfPlayer) {
-            checkPlayerBehavior++;
-        }
-        _turnNumber++;
+    public void EndGame() {
+            
     }
 
     void Awake()
@@ -30,18 +30,5 @@ public class GameManager : MonoBehaviour
         
     }
    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        
-        
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }

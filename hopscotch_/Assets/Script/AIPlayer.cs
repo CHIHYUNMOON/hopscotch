@@ -6,15 +6,12 @@ public class AIPlayer : Player
 {
 
     MapController _MapController;
-    private int[] AILocationIndex; //= {3,2}
+    private int[] AILocationIndex; //
 
 
     public void AIMove()
     {
-
         CheckTileCanMove();
-
-
     }
 
     protected override void OnCollisionEnter(Collision collision)
@@ -113,14 +110,18 @@ public class AIPlayer : Player
         //----------------------------------------------------------------------------------
         foreach (Tile T in Check)
         {
-            if (T._score > MaxScore)
+            if (!T._isOccupied)
             {
-                MaxScore = T._score;
-                NextTile = T;
+                if (T._score > MaxScore)
+                {
+                    MaxScore = T._score;
+                    NextTile = T;
+                }
             }
-
         }
+
         this.transform.position = NextTile.transform.position +Vector3.up *1.0f;
+        AILocationIndex = NextTile.TileLocationIndex;
     }
 
     private void Awake()

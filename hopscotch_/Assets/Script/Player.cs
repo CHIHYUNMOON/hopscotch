@@ -21,14 +21,7 @@ public class Player : MonoBehaviour
         _inst = this;
     }
     //------------------------------------------
-    private void PickNextTile() {
-        
-
-    }
-    public void CheckTurn() {
-
-
-    }
+    
     
 
     protected virtual void OnCollisionEnter(Collision collision)
