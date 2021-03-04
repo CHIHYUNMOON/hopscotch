@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
         AIPlayer = GameObject.Find("AIPlayer(Clone)");
     }
     
-    public void EndGame() {
-            
+    public static void EndGame() {
+         
     }
 
     void Awake()
