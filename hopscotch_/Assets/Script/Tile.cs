@@ -65,7 +65,7 @@ public class Tile : MonoBehaviour
         if (!_isOccupied)
         {
             if (other.gameObject.CompareTag("Player"))
-            {
+            {   //
                 Renderer.material.color = Color.red;
             }
             if (other.gameObject.CompareTag("AIPlayer"))
