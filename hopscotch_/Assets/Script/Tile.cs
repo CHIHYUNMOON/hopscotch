@@ -46,8 +46,8 @@ public class Tile : MonoBehaviour
             {
                 _player = Instantiate(_player);
                 _player.transform.position = this.transform.position + Vector3.up * 1.0f;
-
-                Invoke("BringCreatAI", 0.5f);
+                GameManager._turnNumber++;
+                Invoke("BringCreatAI", 1.0f);
             }
             else if ((this.transform.position - Player._Inst._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
             {
@@ -55,9 +55,12 @@ public class Tile : MonoBehaviour
                 {
                     Player._Inst.transform.position = this.transform.position + Vector3.up * 1.0f;
                     aIPlayer = GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>();
+                    GameManager._turnNumber++;
                     Invoke("BringAIMove", 1.0f);
                 }
             }
+            
+            Debug.Log(GameManager._turnNumber.ToString());
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -65,7 +68,7 @@ public class Tile : MonoBehaviour
         if (!_isOccupied)
         {
             if (other.gameObject.CompareTag("Player"))
-            {   //
+            {   
                 Renderer.material.color = Color.red;
             }
             if (other.gameObject.CompareTag("AIPlayer"))
@@ -75,6 +78,6 @@ public class Tile : MonoBehaviour
             _isOccupied = true;
         }
         Player._isYourTurn = !Player._isYourTurn;
-        GameManager._turnNumber++;
+        
     }
 }

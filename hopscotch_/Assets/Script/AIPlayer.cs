@@ -24,9 +24,10 @@ public class AIPlayer : Player
                 }
             }
         }
-        if (Check == null)
+        if (NextTile == null)
         {
             GameManager.EndGame();
+
         }
         else
         {

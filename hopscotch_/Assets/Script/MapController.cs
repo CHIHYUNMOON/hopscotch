@@ -55,15 +55,15 @@ public class MapController : MonoBehaviour
             {        
                     _mapTile[i][j] = Instantiate(_tile[UnityEngine.Random.Range(0, _tile.Length)]);
                     _mapTile[i][j].transform.position = MapArr[i][j];
-                _mapTile[i][j].GetComponent<Tile>().TileLocationIndex[0] = i;
-                _mapTile[i][j].GetComponent<Tile>().TileLocationIndex[1] = j;
+                    _mapTile[i][j].GetComponent<Tile>().TileLocationIndex[0] = i;
+                    _mapTile[i][j].GetComponent<Tile>().TileLocationIndex[1] = j;
             }
         }
     }
     public void CreateAI()
     {
         if (GameManager._turnNumber ==1) {
-            GameManager._turnNumber++;
+            
             AIFirstLocationIndex = new int[2];
             AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
             AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
@@ -73,6 +73,7 @@ public class MapController : MonoBehaviour
             
         }
     }
+
 
     private void Awake()
     {
