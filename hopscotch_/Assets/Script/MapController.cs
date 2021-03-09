@@ -12,7 +12,14 @@ public class MapController : MonoBehaviour
     private GameObject[][] _mapTile;
     public GameObject[][] _MapTile { get { return _mapTile; } }
     //----------------------------------------------------------
-    public GameObject AIPlayer;
+    [SerializeField]
+    GameObject _aiPrefab;
+    [SerializeField]
+    public GameObject _playerPrefab;
+    [HideInInspector]
+    public static GameObject _aiInstance;
+    [HideInInspector]
+    public static GameObject _playerInstance;
     //----------------------------------------------------------
     private int _sidelength;
     int[] _mapSize = new int[] {5, 6, 7, 8, 9, 8, 7, 6, 5 };
@@ -68,9 +75,8 @@ public class MapController : MonoBehaviour
             AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
             AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
             //------------------------------------------------------------------------    
-            AIPlayer = Instantiate(AIPlayer);
-            AIPlayer.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;
-            
+            _aiInstance = Instantiate(_aiPrefab);
+            _aiInstance.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;        
         }
     }
 
@@ -79,15 +85,6 @@ public class MapController : MonoBehaviour
     {
         CreateMapArr(GameManager._Level);      
     }
-    void Start()  
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-    }
+    
 }

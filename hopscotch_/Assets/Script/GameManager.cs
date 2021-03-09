@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static Player _Player;
+    public static AIPlayer _AIPlayer;
     public MapController mapController;
    
     public static int _turnNumber=0;
@@ -12,41 +14,48 @@ public class GameManager : MonoBehaviour
     private static int _level = 1;
     public static int _Level  { get { return _level; } }
 
+   
 
 
    
 
-    public void TurnCheck() {
-        if (_turnNumber % 2 == 0)
+    public static void TurnCheck() {
+        if (_turnNumber > 1)
         {
-            
-        }
-        else if (_turnNumber % 2 == 1)
-        {
-
+            if (_turnNumber % 2 == 0)
+            {
+                _AIPlayer.CheckTileCanMove();
+            }
+            else if (_turnNumber % 2 == 1)
+            {
+                _Player.CheckTileCanMove();
+            }
         }
     }
-    public static void EndGame() {
+    public static void EndGame()
+    {
         Debug.Log("the End");
         if (Player._isYourTurn)
         {
             Debug.Log("AI +10");
-            GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>()._playerScore += 10;
+            _AIPlayer._playerScore += 10;
         }
-        else if (!Player._isYourTurn) {
+        else if (!Player._isYourTurn)
+        {
             Debug.Log("Player +10");
-            GameObject.Find("Player(Clone)").GetComponent<Player>()._playerScore += 10;
+            _Player._playerScore += 10;
         }
 
-        if (GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>()._playerScore > GameObject.Find("Player(Clone)").GetComponent<Player>()._playerScore)
+        if (_AIPlayer._playerScore > _Player._playerScore)
         {
             Debug.Log("AI Win");
         }
-        else if (GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>()._playerScore < GameObject.Find("Player(Clone)").GetComponent<Player>()._playerScore)
+        else if (_AIPlayer._playerScore < _Player._playerScore)
         {
             Debug.Log("Player Win");
         }
-        else if (GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>()._playerScore == GameObject.Find("Player(Clone)").GetComponent<Player>()._playerScore) {
+        else if (_AIPlayer._playerScore == _Player._playerScore)
+        {
             Debug.Log("Draw");
         }
     }

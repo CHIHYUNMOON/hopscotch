@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     {
         _inst = this;
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
+        
 
     }
     //------------------------------------------
@@ -45,7 +46,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    protected virtual List<Tile> CheckTileCanMove()
+    public virtual List<Tile> CheckTileCanMove()
     {
         List<Tile> Check = new List<Tile>();
 
@@ -129,6 +130,9 @@ public class Player : MonoBehaviour
             {
                 Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
+        }
+        if (Check.Count ==0) {
+            GameManager.EndGame();
         }
 
         return Check;

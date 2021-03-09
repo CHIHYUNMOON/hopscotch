@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class AIPlayer : Player
 {
-    
 
 
+    public override List<Tile> CheckTileCanMove()
+    {
+        return base.CheckTileCanMove();
+    }
     public void AIMove()
     {
         List<Tile> Check = CheckTileCanMove();

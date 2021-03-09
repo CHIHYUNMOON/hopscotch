@@ -8,9 +8,9 @@ public class Tile : MonoBehaviour
     public int _score;
 
     public GameObject _ScoreText;
-    public GameObject _player;
     
-    private GameManager _gameManager;
+    
+    
     Renderer Renderer;
     TextMesh TileText;
     Vector3 playerlocation;
@@ -29,25 +29,32 @@ public class Tile : MonoBehaviour
         TileText.text = _score.ToString();  
         Renderer = GetComponent<Renderer>();
         _mapController = GameObject.Find("MapController").GetComponent<MapController>();
+        
         TileLocationIndex = new int[2];
     }
 
     private void BringCreatAI() {
         _mapController.CreateAI();
+        GameManager._Player = MapController._playerInstance.GetComponent<Player>();
+        GameManager._AIPlayer = MapController._aiInstance.GetComponent<AIPlayer>();
     }
     private void BringAIMove() {
-        aIPlayer.AIMove();
+        MapController._aiInstance.GetComponent<AIPlayer>().AIMove();
     }
+
+
     private void OnMouseDown()
     {
         if (Player._isYourTurn)
         {
             if (GameManager._turnNumber == 0)
             {
-                _player = Instantiate(_player);
-                _player.transform.position = this.transform.position + Vector3.up * 1.0f;
+                MapController._playerInstance = Instantiate(_mapController._playerPrefab);
+                MapController._playerInstance.transform.position = this.transform.position + Vector3.up * 1.0f;
                 GameManager._turnNumber++;
                 Invoke("BringCreatAI", 1.0f);
+               
+
             }
             else if ((this.transform.position - Player._Inst._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
             {
@@ -63,6 +70,9 @@ public class Tile : MonoBehaviour
             Debug.Log(GameManager._turnNumber.ToString());
         }
     }
+
+
+
     private void OnCollisionEnter(Collision other)
     {
         if (!_isOccupied)
@@ -74,10 +84,12 @@ public class Tile : MonoBehaviour
             if (other.gameObject.CompareTag("AIPlayer"))
             {
                 Renderer.material.color = Color.blue;
+                
             }
             _isOccupied = true;
         }
         Player._isYourTurn = !Player._isYourTurn;
+        GameManager.TurnCheck();
         
     }
 }

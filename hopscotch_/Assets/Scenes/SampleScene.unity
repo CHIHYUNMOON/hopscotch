@@ -620,7 +620,9 @@ MonoBehaviour:
   - {fileID: 1167075577503244, guid: c4ebe42ebb2ebe64e8119790524c9852, type: 3}
   - {fileID: 1207470162036134, guid: a41f077c11efded408e9a886cd98d8be, type: 3}
   - {fileID: 1253086438718484, guid: 971c5d43846e5244f8c75cdaee9e9087, type: 3}
-  AIPlayer: {fileID: 7221498003678846973, guid: f7a2de1b58ce36545a50731957da8ee0,
+  _aiPrefab: {fileID: 7221498003678846973, guid: f7a2de1b58ce36545a50731957da8ee0,
+    type: 3}
+  _playerPrefab: {fileID: 1824862833213344918, guid: d8123b1b7f39be04ea9b11cc44d63bff,
     type: 3}
 --- !u!4 &913420651
 Transform:
@@ -749,9 +751,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapController: {fileID: 0}
-  Player: {fileID: 6414435131530344221, guid: d8123b1b7f39be04ea9b11cc44d63bff, type: 3}
-  AIPlayer: {fileID: 7221498003678846973, guid: f7a2de1b58ce36545a50731957da8ee0,
-    type: 3}
 --- !u!4 &1155887787
 Transform:
   m_ObjectHideFlags: 0
