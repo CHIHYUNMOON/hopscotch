@@ -8,14 +8,18 @@ public class MapController : MonoBehaviour
     private Vector3[][] MapArr;
     public Vector3[][] _MapArr { get { return MapArr; } }
     //----------------------------------------------------------
-    public GameObject[] _tile;
+    [SerializeField]
+    private GameObject[] _tile;
     private GameObject[][] _mapTile;
     public GameObject[][] _MapTile { get { return _mapTile; } }
     //----------------------------------------------------------
+    //-------- Player Prefabs-------
     [SerializeField]
-    GameObject _aiPrefab;
+    private GameObject _aiPrefab;
+    public GameObject AIPrefab { get { return _aiPrefab; } }
     [SerializeField]
-    public GameObject _playerPrefab;
+    private GameObject _playerPrefab;
+    public GameObject PlayerPrefab { get { return _playerPrefab; } }
     [HideInInspector]
     public static GameObject _aiInstance;
     [HideInInspector]
@@ -25,10 +29,12 @@ public class MapController : MonoBehaviour
     int[] _mapSize = new int[] {5, 6, 7, 8, 9, 8, 7, 6, 5 };
     public int[] _MapSize { get { return _mapSize; } }
 
-   
+    //----------------------------------------------------------
     private int[] AIFirstLocationIndex;
     public int[] _AIFirstLocationIndex { get { return AIFirstLocationIndex; } }
+    //----------------------------------------------------------
 
+    //Method
     public void CreateMapArr(int level) 
     {        
         _sidelength = level + 4;
@@ -75,7 +81,7 @@ public class MapController : MonoBehaviour
             AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
             AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
             //------------------------------------------------------------------------    
-            _aiInstance = Instantiate(_aiPrefab);
+            _aiInstance = Instantiate(AIPrefab);
             _aiInstance.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;        
         }
     }

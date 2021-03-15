@@ -8,13 +8,14 @@ public class Player : MonoBehaviour
     static Player _inst;
     public static Player _Inst { get { return _inst; } }
     //------------------------------------------
-    public UIManager uIManager;
+    protected UIManager _uIManager;
     protected GameObject _tile;
     public GameObject _Tile { get { return _tile; } }
 
     protected MapController _MapController;
     //------------------------------------------
-    public int _playerScore = 0;
+    protected int _playerScore = 0;
+    public int PlayerScore {get { return _playerScore; } set { _playerScore = value; } }
     public static bool _isYourTurn = true;
     protected int[] PlayerLocationIndex;
     
@@ -26,8 +27,7 @@ public class Player : MonoBehaviour
     {
         _inst = this;
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
-        
-
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
     //------------------------------------------
 
@@ -41,11 +41,13 @@ public class Player : MonoBehaviour
             _tile = collision.gameObject;
             if (!_tile.GetComponent<Tile>()._isOccupied)
             {
-                _playerScore += _tile.GetComponent<Tile>()._score;
+                _playerScore += _tile.GetComponent<Tile>().Score;
                 PlayerLocationIndex = _tile.GetComponent<Tile>().TileLocationIndex;
+                _uIManager.PlayerScore.text = "Player Score : "+_playerScore.ToString();
             }
         }
     }
+
     public virtual List<Tile> CheckTileCanMove()
     {
         List<Tile> Check = new List<Tile>();

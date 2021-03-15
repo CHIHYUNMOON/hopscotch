@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public int _score;
+    private int _score;
+    public int Score { get { return _score; } }
 
     public GameObject _ScoreText;
     
@@ -13,7 +14,7 @@ public class Tile : MonoBehaviour
     
     Renderer Renderer;
     TextMesh TileText;
-    Vector3 playerlocation;
+   
     public bool _isOccupied = false;
     private MapController _mapController;
     private AIPlayer aIPlayer;
@@ -49,7 +50,7 @@ public class Tile : MonoBehaviour
         {
             if (GameManager._turnNumber == 0)
             {
-                MapController._playerInstance = Instantiate(_mapController._playerPrefab);
+                MapController._playerInstance = Instantiate(_mapController.PlayerPrefab);
                 MapController._playerInstance.transform.position = this.transform.position + Vector3.up * 1.0f;
                 GameManager._turnNumber++;
                 Invoke("BringCreatAI", 1.0f);
@@ -83,8 +84,7 @@ public class Tile : MonoBehaviour
             }
             if (other.gameObject.CompareTag("AIPlayer"))
             {
-                Renderer.material.color = Color.blue;
-                
+                Renderer.material.color = Color.blue;                
             }
             _isOccupied = true;
         }

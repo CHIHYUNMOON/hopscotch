@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AIPlayer : Player
 {
-
-
     public override List<Tile> CheckTileCanMove()
     {
         return base.CheckTileCanMove();
@@ -20,29 +18,36 @@ public class AIPlayer : Player
         {
             if (!T._isOccupied)
             {
-                if (T._score > MaxScore)
+                if (T.Score > MaxScore)
                 {
-                    MaxScore = T._score;
+                    MaxScore = T.Score;
                     NextTile = T;
                 }
             }
         }
         if (NextTile == null)
         {
-            GameManager.EndGame();
-
+            //GameManager.EndGame();
         }
         else
         {
             this.transform.position = NextTile.transform.position + Vector3.up * 1.0f;
             PlayerLocationIndex = NextTile.TileLocationIndex;
         }
-        
     }
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollisionEnter(collision);
+        if (collision.gameObject.CompareTag("MapTile"))
+        {
+            _tile = collision.gameObject;
+            if (!_tile.GetComponent<Tile>()._isOccupied)
+            {
+                _playerScore += _tile.GetComponent<Tile>().Score;
+                PlayerLocationIndex = _tile.GetComponent<Tile>().TileLocationIndex;
+                _uIManager.AIScore.text = "AI Score : "+ _playerScore.ToString();
+            }
+        }
     }
 
 
@@ -51,6 +56,7 @@ public class AIPlayer : Player
     {
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
         PlayerLocationIndex = _MapController._AIFirstLocationIndex;
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
 }

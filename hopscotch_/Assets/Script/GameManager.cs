@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         {
             if (_turnNumber % 2 == 0)
             {
-                _AIPlayer.CheckTileCanMove();
+                _AIPlayer.CheckTileCanMove();             
             }
             else if (_turnNumber % 2 == 1)
             {
@@ -32,29 +32,30 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     public static void EndGame()
     {
         Debug.Log("the End");
         if (Player._isYourTurn)
         {
             Debug.Log("AI +10");
-            _AIPlayer._playerScore += 10;
+            _AIPlayer.PlayerScore += 10;
         }
         else if (!Player._isYourTurn)
         {
             Debug.Log("Player +10");
-            _Player._playerScore += 10;
+            _Player.PlayerScore += 10;
         }
 
-        if (_AIPlayer._playerScore > _Player._playerScore)
+        if (_AIPlayer.PlayerScore > _Player.PlayerScore)
         {
             Debug.Log("AI Win");
         }
-        else if (_AIPlayer._playerScore < _Player._playerScore)
+        else if (_AIPlayer.PlayerScore < _Player.PlayerScore)
         {
             Debug.Log("Player Win");
         }
-        else if (_AIPlayer._playerScore == _Player._playerScore)
+        else if (_AIPlayer.PlayerScore == _Player.PlayerScore)
         {
             Debug.Log("Draw");
         }
