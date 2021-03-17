@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
         {
             if (_turnNumber % 2 == 0)
             {
-                _AIPlayer.CheckTileCanMove();             
+                _AIPlayer.CheckTileCanMove();
+                _Player.CheckTileCanMove();
             }
             else if (_turnNumber % 2 == 1)
             {

@@ -75,11 +75,18 @@ public class MapController : MonoBehaviour
     }
     public void CreateAI()
     {
-        if (GameManager._turnNumber ==1) {
-            
+        if (GameManager._turnNumber ==1)
+        {    
             AIFirstLocationIndex = new int[2];
             AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
             AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
+            while (_mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>()._isOccupied) {
+                AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
+                AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
+                if (!_mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>()._isOccupied) {
+                    break;
+                }
+            }
             //------------------------------------------------------------------------    
             _aiInstance = Instantiate(AIPrefab);
             _aiInstance.transform.position = MapArr[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]] +Vector3.up *1.0f;        

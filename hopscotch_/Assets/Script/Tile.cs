@@ -7,10 +7,10 @@ public class Tile : MonoBehaviour
 {
     private int _score;
     public int Score { get { return _score; } }
+    [SerializeField]
+    private GameObject _ScoreTextPrefab;
 
-    public GameObject _ScoreText;
-    
-    
+    private GameObject _ScoreTextInst;
     
     Renderer Renderer;
     TextMesh TileText;
@@ -24,9 +24,9 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         _score = UnityEngine.Random.Range(1, 6);
-        _ScoreText = Instantiate(_ScoreText);
-        _ScoreText.transform.parent =gameObject.transform;
-        TileText = _ScoreText.GetComponent<TextMesh>();
+        _ScoreTextInst = Instantiate(_ScoreTextPrefab);
+        _ScoreTextInst.transform.parent = gameObject.transform;
+        TileText = _ScoreTextInst.GetComponent<TextMesh>();
         TileText.text = _score.ToString();  
         Renderer = GetComponent<Renderer>();
         _mapController = GameObject.Find("MapController").GetComponent<MapController>();
