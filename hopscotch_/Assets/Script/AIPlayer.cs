@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class AIPlayer : Player
 {
-    
-
-
     public void AIMove()
     {
         List<Tile> Check = CheckTileCanMove();
@@ -42,12 +39,9 @@ public class AIPlayer : Player
         base.OnCollisionEnter(collision);
     }
 
-
-
     private void Awake()
     {
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
         PlayerLocationIndex = _MapController._AIFirstLocationIndex;
     }
-
 }
