@@ -11,8 +11,9 @@ public class Player : MonoBehaviour
     protected UIManager _uIManager;
     protected GameObject _tile;
     public GameObject _Tile { get { return _tile; } }
-
     protected MapController _MapController;
+    protected Animator _animator;
+    public Animator Animator { get { return _animator; } }
     //------------------------------------------
     protected int _playerScore = 0;
     public int PlayerScore {get { return _playerScore; } set { _playerScore = value; } }
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
         _inst = this;
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _animator = GetComponent<Animator>();
     }
     //------------------------------------------
 

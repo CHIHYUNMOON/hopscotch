@@ -17,13 +17,16 @@ public class MapController : MonoBehaviour
     [SerializeField]
     private GameObject _aiPrefab;
     public GameObject AIPrefab { get { return _aiPrefab; } }
+
     [SerializeField]
     private GameObject _playerPrefab;
     public GameObject PlayerPrefab { get { return _playerPrefab; } }
+
     [HideInInspector]
     public static GameObject _aiInstance;
     [HideInInspector]
     public static GameObject _playerInstance;
+
     //----------------------------------------------------------
     private int _sidelength;
     int[] _mapSize = new int[] {5, 6, 7, 8, 9, 8, 7, 6, 5 };

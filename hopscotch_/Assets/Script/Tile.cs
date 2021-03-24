@@ -66,8 +66,7 @@ public class Tile : MonoBehaviour
                     GameManager._turnNumber++;
                     Invoke("BringAIMove", 1.0f);
                 }
-            }
-            
+            }          
             Debug.Log(GameManager._turnNumber.ToString());
         }
     }

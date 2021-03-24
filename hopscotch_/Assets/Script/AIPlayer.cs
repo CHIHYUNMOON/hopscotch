@@ -8,6 +8,7 @@ public class AIPlayer : Player
     {
         return base.CheckTileCanMove();
     }
+
     public void AIMove()
     {
         List<Tile> Check = CheckTileCanMove();
