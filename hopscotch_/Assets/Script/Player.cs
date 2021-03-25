@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
 
 
-
+    //public void Move();
     private void Awake()
     {
         _inst = this;
