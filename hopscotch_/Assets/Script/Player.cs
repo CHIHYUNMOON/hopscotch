@@ -11,19 +11,32 @@ public class Player : MonoBehaviour
     protected UIManager _uIManager;
     protected GameObject _tile;
     public GameObject _Tile { get { return _tile; } }
+    protected GameObject _nextTile;
+    public GameObject NextTile { get { return _nextTile; } set { _nextTile = value; } }
     protected MapController _MapController;
     protected Animator _animator;
     public Animator Animator { get { return _animator; } }
+    
     //------------------------------------------
     protected int _playerScore = 0;
     public int PlayerScore {get { return _playerScore; } set { _playerScore = value; } }
     public static bool _isYourTurn = true;
     protected int[] PlayerLocationIndex;
-    
+    protected float _moveSpeed = 0.5f;
 
 
 
-    //public void Move();
+
+    public virtual void CharacterMove(Tile nextTile)
+    {
+        Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
+        Vector3 tmpEuler = tmp.eulerAngles;
+        tmpEuler.x = 0f;
+        gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+        
+        this.gameObject.transform.Translate(Vector3.forward);
+    }
+
     private void Awake()
     {
         _inst = this;

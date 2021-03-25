@@ -24,12 +24,12 @@ public class GameManager : MonoBehaviour
         {
             if (_turnNumber % 2 == 0)
             {
-                _AIPlayer.CheckTileCanMove();
-                _Player.CheckTileCanMove();
+               // _AIPlayer.CheckTileCanMove();
+                //_Player.CheckTileCanMove();
             }
             else if (_turnNumber % 2 == 1)
             {
-                _Player.CheckTileCanMove();
+                //_Player.CheckTileCanMove();
             }
         }
     }
