@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 
 
 
-    IEnumerator TurnChanger() {
+    IEnumerator TurnChanger()
+    {
         
 
         yield return null;
@@ -43,33 +44,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void EndGame()
-    {
-        Debug.Log("the End");
-        if (Player._isYourTurn)
-        {
-            Debug.Log("AI +10");
-            _AIPlayer.PlayerScore += 10;
-        }
-        else if (!Player._isYourTurn)
-        {
-            Debug.Log("Player +10");
-            _Player.PlayerScore += 10;
-        }
+    //public static void EndGame()
+    //{
+    //    Debug.Log("the End");
+    //    if (Player._isYourTurn)
+    //    {
+    //        Debug.Log("AI +10");
+    //        _AIPlayer.PlayerScore += 10;
+    //    }
+    //    else if (!Player._isYourTurn)
+    //    {
+    //        Debug.Log("Player +10");
+    //        _Player.PlayerScore += 10;
+    //    }
 
-        if (_AIPlayer.PlayerScore > _Player.PlayerScore)
-        {
-            Debug.Log("AI Win");
-        }
-        else if (_AIPlayer.PlayerScore < _Player.PlayerScore)
-        {
-            Debug.Log("Player Win");
-        }
-        else if (_AIPlayer.PlayerScore == _Player.PlayerScore)
-        {
-            Debug.Log("Draw");
-        }
-    }
+    //    if (_AIPlayer.PlayerScore > _Player.PlayerScore)
+    //    {
+    //        Debug.Log("AI Win");
+    //    }
+    //    else if (_AIPlayer.PlayerScore < _Player.PlayerScore)
+    //    {
+    //        Debug.Log("Player Win");
+    //    }
+    //    else if (_AIPlayer.PlayerScore == _Player.PlayerScore)
+    //    {
+    //        Debug.Log("Draw");
+    //    }
+    //}
 
     void Awake()
     {

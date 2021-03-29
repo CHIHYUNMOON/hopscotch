@@ -40,15 +40,12 @@ public class Tile : MonoBehaviour
         GameManager._AIPlayer = MapController._aiInstance.GetComponent<AIPlayer>();
     }
 
-    private void BringAIMove() {       
-        AIPlayer._Inst.CharacterMove();
-    }
+    
 
 
     private void OnMouseDown()
     {
-        if (Player._isYourTurn)
-        {
+        
             if (GameManager._turnNumber == 0)
             {
                 MapController._playerInstance = Instantiate(_mapController.PlayerPrefab);
@@ -68,7 +65,7 @@ public class Tile : MonoBehaviour
                 }
             }          
             Debug.Log(GameManager._turnNumber.ToString());
-        }
+        
     }
 
 
