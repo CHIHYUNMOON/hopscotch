@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //------------------------------------------
-    static Player _inst;
+    private static Player _inst;
     public static Player _Inst { get { return _inst; } }
     //------------------------------------------
     protected UIManager _uIManager;
@@ -28,13 +28,17 @@ public class Player : MonoBehaviour
 
 
     public virtual void CharacterMove(Tile nextTile)
-    {
-        Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
-        Vector3 tmpEuler = tmp.eulerAngles;
-        tmpEuler.x = 0f;
-        gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-        
-        this.gameObject.transform.Translate(Vector3.forward);
+    {   
+            Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
+            Vector3 tmpEuler = tmp.eulerAngles;
+            tmpEuler.x = 0f;
+            gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+
+            this.gameObject.transform.Translate(Vector3.forward);        
+    }
+
+    public virtual void CharacterMove() {
+        return;
     }
 
     private void Awake()
@@ -58,7 +62,7 @@ public class Player : MonoBehaviour
             {
                 _playerScore += _tile.GetComponent<Tile>().Score;
                 PlayerLocationIndex = _tile.GetComponent<Tile>().TileLocationIndex;
-                _uIManager.PlayerScore.text = "Player Score : "+_playerScore.ToString();
+                
             }
         }
     }
@@ -66,7 +70,6 @@ public class Player : MonoBehaviour
     public virtual List<Tile> CheckTileCanMove()
     {
         List<Tile> Check = new List<Tile>();
-
         if (PlayerLocationIndex[0] < 4)
         {
             if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] - 1 >= 0)
@@ -148,14 +151,12 @@ public class Player : MonoBehaviour
                 Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
         }
+
         if (Check.Count ==0) {
             GameManager.EndGame();
+            return null;
         }
-
         return Check;
     }
-
-    
-
 }
   

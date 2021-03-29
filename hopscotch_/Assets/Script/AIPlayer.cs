@@ -4,12 +4,34 @@ using UnityEngine;
 
 public class AIPlayer : Player
 {
+    private static AIPlayer _inst;
+    public static AIPlayer _Inst { get { return _inst; } }
     public override List<Tile> CheckTileCanMove()
     {
         return base.CheckTileCanMove();
     }
 
-    public void AIMove()
+    public Tile AISellectTile() {
+        
+        List<Tile> Check = CheckTileCanMove();
+        Tile tmp = null;
+        int MaxScore = 0;
+
+        foreach (Tile T in Check)
+        {
+            if (!T._isOccupied)
+            {
+                if (T.Score > MaxScore)
+                {
+                    MaxScore = T.Score;
+                    tmp = T;
+                }
+            }
+        }
+
+        return tmp;
+    }
+    public override void CharacterMove()
     {
         List<Tile> Check = CheckTileCanMove();
         Tile NextTile = null;
@@ -28,12 +50,11 @@ public class AIPlayer : Player
         }
         if (NextTile == null)
         {
-            //GameManager.EndGame();
+            GameManager.EndGame();
         }
         else
         {
-            this.transform.position = NextTile.transform.position + Vector3.up * 1.0f;
-            PlayerLocationIndex = NextTile.TileLocationIndex;
+            base.CharacterMove(NextTile);
         }
     }
 
@@ -55,6 +76,7 @@ public class AIPlayer : Player
 
     private void Awake()
     {
+        _inst = this;
         _MapController = GameObject.Find("MapController").GetComponent<MapController>();
         PlayerLocationIndex = _MapController._AIFirstLocationIndex;
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();

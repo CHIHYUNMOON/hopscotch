@@ -40,8 +40,8 @@ public class Tile : MonoBehaviour
         GameManager._AIPlayer = MapController._aiInstance.GetComponent<AIPlayer>();
     }
 
-    private void BringAIMove() {
-        MapController._aiInstance.GetComponent<AIPlayer>().AIMove();
+    private void BringAIMove() {       
+        AIPlayer._Inst.CharacterMove();
     }
 
 
@@ -54,20 +54,17 @@ public class Tile : MonoBehaviour
                 MapController._playerInstance = Instantiate(_mapController.PlayerPrefab);
                 MapController._playerInstance.transform.position = this.transform.position + Vector3.up * 1.0f;
                 GameManager._turnNumber++;
-                //Invoke("BringCreatAI", 1.0f);
-               
-
+                Invoke("BringCreatAI", 1.0f);
             }
-            else if ((this.transform.position - Player._Inst._Tile.transform.position).sqrMagnitude <= 2.0f && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
+            else if (Player._Inst.CheckTileCanMove().Contains(this) && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
             {
                 if (!_isOccupied)
                 {
-                    //Player._Inst.transform.position = this.transform.position + Vector3.up * 1.0f;
-                     
-                    Player._Inst.CharacterMove(this);
-                    //aIPlayer = GameObject.Find("AIPlayer(Clone)").GetComponent<AIPlayer>();
+                    Player._Inst.CheckTileCanMove();
+                    Player._Inst.CharacterMove(this);                    
                     GameManager._turnNumber++;
-                    //Invoke("BringAIMove", 1.0f);
+                    AIPlayer._Inst.CheckTileCanMove();
+                    
                 }
             }          
             Debug.Log(GameManager._turnNumber.ToString());
@@ -90,7 +87,7 @@ public class Tile : MonoBehaviour
             }
             _isOccupied = true;
         }
-        //Player._isYourTurn = !Player._isYourTurn;
+        Player._isYourTurn = !Player._isYourTurn;
         GameManager.TurnCheck();
         
     }

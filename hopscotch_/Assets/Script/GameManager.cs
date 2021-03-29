@@ -10,26 +10,35 @@ public class GameManager : MonoBehaviour
     public MapController mapController;
    
     public static int _turnNumber=0;
-
     private static int _level = 1;
+
+    private bool _isPlayer1Turn = true;
+    public bool _IsPlayer1Turn  { get { return _isPlayer1Turn; } }
+
+    private bool _isPlayer2Turn = false;
+    public bool _IsPlayer2Turn { get { return _isPlayer2Turn; } }
     public static int _Level  { get { return _level; } }
 
+
+
+    IEnumerator TurnChanger() {
+        
+
+        yield return null;
+    }
    
-
-
-   
-
+    
     public static void TurnCheck() {
         if (_turnNumber > 1)
         {
             if (_turnNumber % 2 == 0)
             {
-               // _AIPlayer.CheckTileCanMove();
-                //_Player.CheckTileCanMove();
+                _AIPlayer.CheckTileCanMove();
+                _Player.CheckTileCanMove();
             }
             else if (_turnNumber % 2 == 1)
             {
-                //_Player.CheckTileCanMove();
+                _Player.CheckTileCanMove();
             }
         }
     }
