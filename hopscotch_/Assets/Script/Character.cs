@@ -136,6 +136,7 @@ public abstract class Character : MonoBehaviour
             {
                 _playerScore += _tile.GetComponent<Tile>().Score;
                 PlayerLocationIndex = _tile.GetComponent<Tile>().TileLocationIndex;
+                _uIManager.PlayerScore.text = "Player Score : " + _playerScore.ToString();
             }
         }
     }

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static Player _Player;
     public static AIPlayer _AIPlayer;
-    public MapController mapController;
+    private MapController _mapController;
    
     public static int _turnNumber=0;
     private static int _level = 1;
@@ -17,13 +17,42 @@ public class GameManager : MonoBehaviour
 
     private bool _isPlayer2Turn = false;
     public bool _IsPlayer2Turn { get { return _isPlayer2Turn; } }
+    public static bool _isGameStart=false;
+
+
     public static int _Level  { get { return _level; } }
 
 
 
+    private Tile _nextTile;
+    public Tile _NextTile { get { return _nextTile; } set { _nextTile = value; } }
+
+
     IEnumerator TurnChanger()
     {
-        
+        yield return WaitUntil.
+        while (_isGameStart)
+        {
+            if (_turnNumber == 0)
+            {
+                //creat Player & AI
+                if (_isPlayer1Turn)
+                {
+                    _mapController.CreateCharacter(_nextTile);
+                }
+
+            }
+            else if (_turnNumber > 0 && _isPlayer1Turn)
+            {
+                //Player turn
+            }
+            else if (_turnNumber > 0 && _isPlayer2Turn)
+            {
+                //AI Turn
+            }
+            _isPlayer1Turn = !_isPlayer1Turn;
+            _isPlayer2Turn = !_isPlayer1Turn;
+        }
 
         yield return null;
     }
@@ -74,9 +103,17 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        
+        _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         
     }
-   
-  
+    private void Start()
+    {
+        StartCoroutine(TurnChanger());
+    }
+    private void Update()
+    {
+        //if (_isGameStart) {
+        //    StartCoroutine(TurnChanger());
+        //}
+    }
 }
