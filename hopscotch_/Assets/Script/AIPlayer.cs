@@ -27,6 +27,7 @@ public class AIPlayer : Character
                 }
             }
         }
+        _isYouSelectTile = true;
         return tmp;
     }
 

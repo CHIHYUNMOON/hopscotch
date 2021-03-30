@@ -13,13 +13,15 @@ public abstract class Character : MonoBehaviour
     protected int _playerScore = 0;
     public int PlayerScore { get { return _playerScore; } set { _playerScore = value; } }
     //---------------------------------------------------------------------------------
-    protected MapController _MapController;
+    protected MapController _mapController;
     protected UIManager _uIManager;
+    protected GameManager _gameManager;
     protected Animator _animator;
     public Animator Animator { get { return _animator; } }
     protected int[] PlayerLocationIndex;
+    public bool _isYouSelectTile;
     //---------------------------------------------------------------------------------
-    public static bool _isYourTurn;
+    
 
 
 
@@ -29,9 +31,14 @@ public abstract class Character : MonoBehaviour
     protected virtual void Awake()
     {       
         _inst = this;
-        _MapController = GameObject.Find("MapController").GetComponent<MapController>();
+        _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _animator = GetComponent<Animator>();
+        if (GameManager._IsPlayer1Turn)
+            _gameManager._Player1 = this;
+        else if (GameManager._IsPlayer2Turn)
+            _gameManager._Player2 = this;
     }
 
     public virtual List<Tile> CheckTileCanMove()
@@ -41,81 +48,81 @@ public abstract class Character : MonoBehaviour
         {
             if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] - 1 >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] <= _MapController._MapSize[PlayerLocationIndex[0] - 1] - 1)
+            if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] <= _mapController._MapSize[PlayerLocationIndex[0] - 1] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1]].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
             if (PlayerLocationIndex[1] - 1 >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[1] + 1 <= _MapController._MapSize[PlayerLocationIndex[0]] - 1)
+            if (PlayerLocationIndex[1] + 1 <= _mapController._MapSize[PlayerLocationIndex[0]] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[0] + 1 <= _MapController._MapSize.Length - 1)
+            if (PlayerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[0] + 1 <= _MapController._MapSize.Length - 1 && PlayerLocationIndex[1] + 1 <= _MapController._MapSize[PlayerLocationIndex[0] + 1] - 1)
+            if (PlayerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1 && PlayerLocationIndex[1] + 1 <= _mapController._MapSize[PlayerLocationIndex[0] + 1] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
             }
         }
         else if (PlayerLocationIndex[0] == 4)
         {
             if (PlayerLocationIndex[1] - 1 >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[1] <= _MapController._MapSize[PlayerLocationIndex[0] - 1] - 1)
+            if (PlayerLocationIndex[1] <= _mapController._MapSize[PlayerLocationIndex[0] - 1] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1]].GetComponent<Tile>());
-            }
-            if (PlayerLocationIndex[1] - 1 >= 0)
-            {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
-            }
-            if (PlayerLocationIndex[1] + 1 <= _MapController._MapSize[PlayerLocationIndex[0]] - 1)
-            {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
             if (PlayerLocationIndex[1] - 1 >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[1] + 1 <= _MapController._MapSize[PlayerLocationIndex[0] + 1] - 1)
+            if (PlayerLocationIndex[1] + 1 <= _mapController._MapSize[PlayerLocationIndex[0]] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
+            }
+            if (PlayerLocationIndex[1] - 1 >= 0)
+            {
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+            }
+            if (PlayerLocationIndex[1] + 1 <= _mapController._MapSize[PlayerLocationIndex[0] + 1] - 1)
+            {
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
         }
         else if (PlayerLocationIndex[0] > 4)
         {
             if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1]].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] + 1 <= _MapController._MapSize[PlayerLocationIndex[0] - 1] - 1)
+            if (PlayerLocationIndex[0] - 1 >= 0 && PlayerLocationIndex[1] + 1 <= _mapController._MapSize[PlayerLocationIndex[0] - 1] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] - 1][PlayerLocationIndex[1] + 1].GetComponent<Tile>());
             }
             if (PlayerLocationIndex[1] - 1 >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[1] + 1 <= _MapController._MapSize[PlayerLocationIndex[0]] - 1)
+            if (PlayerLocationIndex[1] + 1 <= _mapController._MapSize[PlayerLocationIndex[0]] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] + 1].GetComponent<Tile>());//error
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0]][PlayerLocationIndex[1] + 1].GetComponent<Tile>());//error
             }
-            if (PlayerLocationIndex[0] + 1 <= _MapController._MapSize.Length - 1 && PlayerLocationIndex[1] - 1 >= 0)
+            if (PlayerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1 && PlayerLocationIndex[1] - 1 >= 0)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (PlayerLocationIndex[0] + 1 <= _MapController._MapSize.Length - 1 && PlayerLocationIndex[1] <= _MapController._MapSize[PlayerLocationIndex[0] + 1] - 1)
+            if (PlayerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1 && PlayerLocationIndex[1] <= _mapController._MapSize[PlayerLocationIndex[0] + 1] - 1)
             {
-                Check.Add(_MapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
+                Check.Add(_mapController._MapTile[PlayerLocationIndex[0] + 1][PlayerLocationIndex[1]].GetComponent<Tile>());
             }
         }
 

@@ -34,38 +34,28 @@ public class Tile : MonoBehaviour
 
     }
 
-    private void BringCreatAI() {
-        //_mapController.CreateAI();
-        GameManager._Player = MapController._playerInstance.GetComponent<Player>();
-        GameManager._AIPlayer = MapController._aiInstance.GetComponent<AIPlayer>();
-    }
+   
 
     
 
 
     private void OnMouseDown()
-    {
-        
+    {      
             if (GameManager._turnNumber == 0)
             {
-                GameManager._isGameStart = true;
-                //GameManager._turnNumber++;
-                 _gameManager._NextTile = this;
-                //Invoke("BringCreatAI", 1.0f);
+                GameManager._isGameStart = true;                
+                _gameManager._NextTile = this;               
             }
-            else if (Player._Inst.CheckTileCanMove().Contains(this) && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
+            else if (Character._Inst.CheckTileCanMove().Contains(this) && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
             {
                 if (!_isOccupied)
                 {
-                    Player._Inst.CheckTileCanMove();
-                    Player._Inst.CharacterMove(this);                    
-                    GameManager._turnNumber++;
-                    AIPlayer._Inst.CheckTileCanMove();
-                    
+                   
+                    _gameManager._NextTile = this;
+                    _gameManager._Player1._isYouSelectTile = true;
                 }
             }          
-            Debug.Log(GameManager._turnNumber.ToString());
-        
+            Debug.Log(GameManager._turnNumber.ToString());      
     }
 
 
@@ -84,8 +74,8 @@ public class Tile : MonoBehaviour
             }
             _isOccupied = true;
         }
-        Player._isYourTurn = !Player._isYourTurn;
-        //GameManager.TurnCheck();
+        
+        
         
     }
 }

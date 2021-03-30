@@ -5,18 +5,20 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static Player _Player;
-    public static AIPlayer _AIPlayer;
+    private  Character _player1;
+    public Character _Player1 { get { return _player1; } set { _player1 = value; } }
+    private Character _player2;
+    public Character _Player2 { get { return _player2; } set { _player2 = value; } }
     private MapController _mapController;
    
     public static int _turnNumber=0;
     private static int _level = 1;
 
-    private bool _isPlayer1Turn = true;
-    public bool _IsPlayer1Turn  { get { return _isPlayer1Turn; } }
+    private static bool _isPlayer1Turn = true;
+    public static bool _IsPlayer1Turn  { get { return _isPlayer1Turn; } }
 
-    private bool _isPlayer2Turn = false;
-    public bool _IsPlayer2Turn { get { return _isPlayer2Turn; } }
+    private static bool _isPlayer2Turn = false;
+    public static bool _IsPlayer2Turn { get { return _isPlayer2Turn; } }
     public static bool _isGameStart=false;
 
 
@@ -30,48 +32,63 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TurnChanger()
     {
-        yield return WaitUntil.
-        while (_isGameStart)
+        //yield return WaitUntil.
+        while (true)
         {
-            if (_turnNumber == 0)
+            if (!_isGameStart)
+                yield return null;
+            else
             {
-                //creat Player & AI
-                if (_isPlayer1Turn)
+                if (_turnNumber == 0)
                 {
-                    _mapController.CreateCharacter(_nextTile);
+                    //creat Player & AI
+                    if (_isPlayer1Turn)
+                    {
+                        _mapController.CreateCharacter(_nextTile);
+
+                    }
+                    else if (_isPlayer2Turn)
+                    {
+                        _mapController.CreateCharacter(null);
+                        _turnNumber++; //Finish First turn
+                    }
+                    
                 }
+                else if (_turnNumber > 0)
+                {          
+                    if (_isPlayer1Turn && _player1._isYouSelectTile)
+                    {
+                        //Player1 turn
+                        _player1.CharacterMove(_nextTile);
+                        _player1._isYouSelectTile = !_player1._isYouSelectTile;
+                    }
+                    else if (_isPlayer2Turn )
+                    {
+                        //Player2 Turn
 
-            }
-            else if (_turnNumber > 0 && _isPlayer1Turn)
-            {
-                //Player turn
-            }
-            else if (_turnNumber > 0 && _isPlayer2Turn)
-            {
-                //AI Turn
-            }
-            _isPlayer1Turn = !_isPlayer1Turn;
-            _isPlayer2Turn = !_isPlayer1Turn;
-        }
 
-        yield return null;
+                        _player2.CharacterMove(_nextTile);
+                        _player2._isYouSelectTile = !_player2._isYouSelectTile;
+
+                        _turnNumber++;
+                    }
+                    
+                }
+                _isPlayer1Turn = !_isPlayer1Turn;
+                _isPlayer2Turn = !_isPlayer1Turn;
+
+                yield return null;
+            }
+            yield return null;
+        }          
+            
     }
+
+        
+    
    
     
-    public static void TurnCheck() {
-        if (_turnNumber > 1)
-        {
-            if (_turnNumber % 2 == 0)
-            {
-                _AIPlayer.CheckTileCanMove();
-                _Player.CheckTileCanMove();
-            }
-            else if (_turnNumber % 2 == 1)
-            {
-                _Player.CheckTileCanMove();
-            }
-        }
-    }
+    
 
     //public static void EndGame()
     //{
