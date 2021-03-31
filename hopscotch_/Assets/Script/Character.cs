@@ -19,7 +19,7 @@ public abstract class Character : MonoBehaviour
     protected Animator _animator;
     public Animator Animator { get { return _animator; } }
     protected int[] _playerLocationIndex;
-    public int[] __playerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }
+    public int[] _PlayerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }
     public bool _isYouSelectTile =false;
     //---------------------------------------------------------------------------------
     
@@ -127,10 +127,7 @@ public abstract class Character : MonoBehaviour
             }
         }
 
-        if (Check.Count == 0)
-        {
-            return null;
-        }
+       
         return Check;
     }
 

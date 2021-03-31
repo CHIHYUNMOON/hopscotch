@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AIPlayer : Character
 {
-   
     public override List<Tile> CheckTileCanMove()
     {
         return base.CheckTileCanMove();
@@ -63,6 +62,7 @@ public class AIPlayer : Character
     protected override void Awake()
     {
         base.Awake();
+        _isYouSelectTile = true;
     }
 
 }

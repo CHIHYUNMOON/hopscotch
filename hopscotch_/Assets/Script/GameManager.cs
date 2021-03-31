@@ -45,35 +45,35 @@ public class GameManager : MonoBehaviour
                     {
                         _mapController.CreateCharacter(_nextTile);
                     }
-                    else if(!_isPlayer1Turn)
+                    else if(_isPlayer2Turn)
                     {
+                        yield return new WaitForSeconds(1.0f);
                         _mapController.CreateCharacter(null);
                         _turnNumber++; //Finish First turn
                     }                   
                     
                 }
-
                 else if (_turnNumber > 0)
                 {
-                    StartCoroutine(WaitUntilChooseTile());
-                    if (_isPlayer1Turn &&_player1._isYouSelectTile)
+                    
+                    if (_isPlayer1Turn )
                     {
                         //Player1 turn
-                        _player1.CharacterMove(_nextTile);
-                        _player1._isYouSelectTile = !_player1._isYouSelectTile;
+                        yield return new WaitUntil(() => _Player1._isYouSelectTile);
+                        _player1.CharacterMove(_nextTile);                        
                     }
-                    else if (!_isPlayer1Turn && _player2._isYouSelectTile)
+
+                    else if (_isPlayer2Turn )
                     {
+                        yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2.0f));
                         //Player2 Turn
-
-
-                        _player2.CharacterMove(_nextTile);
-                        _player2._isYouSelectTile = !_player2._isYouSelectTile;
-
+                        _player2.CharacterMove(_nextTile);                     
                         _turnNumber++;
                     }
                     
                 }
+             
+                EndGame(); 
                 _isPlayer1Turn = !_isPlayer1Turn;
                 _isPlayer2Turn = !_isPlayer1Turn;
 
@@ -85,7 +85,45 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void EndGame()
+    {
+        bool _isGameEnd = false;       
+        if (_isPlayer1Turn)
+        {
+            if (_player1.CheckTileCanMove().Count == 0)
+            {
+                _player2.PlayerScore += 10;
+                _isGameEnd = true;
+                Debug.Log("Player2 gets 10 points");
+            }
+        }
+        else if (_isPlayer2Turn)
+        {
+            if (_player2.CheckTileCanMove().Count == 0)
+            {
+                _player1.PlayerScore += 10;
+                _isGameEnd = true;
+                Debug.Log("Player1 gets 10 points");
+            }
+        }
 
+        if (_isGameEnd)
+        {
+            if (_player1.PlayerScore > _player2.PlayerScore)
+            {
+                Debug.Log("Player1 Win");
+            }
+            else if (_player1.PlayerScore < _player2.PlayerScore)
+            {
+                Debug.Log("Player2 Win");
+            }
+            else if (_player1.PlayerScore == _player2.PlayerScore)
+            {
+                Debug.Log("Draw");
+            }
+
+        }
+    }
 
     IEnumerator WaitUntilChooseTile() {
         while (true) {
@@ -111,19 +149,7 @@ public class GameManager : MonoBehaviour
     //        Debug.Log("Player +10");
     //        _Player.PlayerScore += 10;
     //    }
-
-    //    if (_AIPlayer.PlayerScore > _Player.PlayerScore)
-    //    {
-    //        Debug.Log("AI Win");
-    //    }
-    //    else if (_AIPlayer.PlayerScore < _Player.PlayerScore)
-    //    {
-    //        Debug.Log("Player Win");
-    //    }
-    //    else if (_AIPlayer.PlayerScore == _Player.PlayerScore)
-    //    {
-    //        Debug.Log("Draw");
-    //    }
+    
     //}
 
     void Awake()
