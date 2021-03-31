@@ -12,7 +12,8 @@ public class Player : Character
             tmpEuler.x = 0f;
             gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
 
-            this.gameObject.transform.Translate(Vector3.forward);        
+            this.gameObject.transform.Translate(Vector3.forward);
+            _isYouSelectTile = false;
     }
 
    

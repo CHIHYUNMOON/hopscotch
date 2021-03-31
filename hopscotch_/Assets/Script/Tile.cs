@@ -46,16 +46,24 @@ public class Tile : MonoBehaviour
                 GameManager._isGameStart = true;                
                 _gameManager._NextTile = this;               
             }
-            else if (Character._Inst.CheckTileCanMove().Contains(this) && GameManager._turnNumber > 0) //Distance between tiles is about 1.0f
+            else if (_gameManager._Player1.CheckTileCanMove().Contains(this) && GameManager._IsPlayer1Turn) //Distance between tiles is about 1.0f
             {
                 if (!_isOccupied)
-                {
-                   
+                {                  
                     _gameManager._NextTile = this;
                     _gameManager._Player1._isYouSelectTile = true;
                 }
-            }          
-            Debug.Log(GameManager._turnNumber.ToString());      
+            }
+            else if (_gameManager._Player2.CheckTileCanMove().Contains(this) && GameManager._IsPlayer2Turn) //Distance between tiles is about 1.0f
+            {
+                if (!_isOccupied)
+                {
+                    _gameManager._NextTile = this;
+                    _gameManager._Player2._isYouSelectTile = true;
+                }
+            }
+
+        Debug.Log(GameManager._turnNumber.ToString());      
     }
 
 

@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TurnChanger()
     {
-        //yield return WaitUntil.
         while (true)
         {
             if (!_isGameStart)
@@ -45,24 +44,25 @@ public class GameManager : MonoBehaviour
                     if (_isPlayer1Turn)
                     {
                         _mapController.CreateCharacter(_nextTile);
-
                     }
-                    else if (_isPlayer2Turn)
+                    else if(!_isPlayer1Turn)
                     {
                         _mapController.CreateCharacter(null);
                         _turnNumber++; //Finish First turn
-                    }
+                    }                   
                     
                 }
+
                 else if (_turnNumber > 0)
-                {          
-                    if (_isPlayer1Turn && _player1._isYouSelectTile)
+                {
+                    StartCoroutine(WaitUntilChooseTile());
+                    if (_isPlayer1Turn &&_player1._isYouSelectTile)
                     {
                         //Player1 turn
                         _player1.CharacterMove(_nextTile);
                         _player1._isYouSelectTile = !_player1._isYouSelectTile;
                     }
-                    else if (_isPlayer2Turn )
+                    else if (!_isPlayer1Turn && _player2._isYouSelectTile)
                     {
                         //Player2 Turn
 
@@ -84,10 +84,18 @@ public class GameManager : MonoBehaviour
             
     }
 
-        
-    
-   
-    
+
+
+
+    IEnumerator WaitUntilChooseTile() {
+        while (true) {
+            if (_player1._isYouSelectTile ||_player2._isYouSelectTile)
+                break;
+            yield return null;
+        }
+        yield return null;
+
+    }
     
 
     //public static void EndGame()

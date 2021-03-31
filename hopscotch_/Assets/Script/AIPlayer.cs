@@ -39,7 +39,8 @@ public class AIPlayer : Character
         Vector3 tmpEuler = tmp.eulerAngles;
         tmpEuler.x = 0f;
         gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-        this.gameObject.transform.Translate(Vector3.forward);         
+        this.gameObject.transform.Translate(Vector3.forward);
+        _isYouSelectTile = false;
     }
 
 
@@ -51,7 +52,7 @@ public class AIPlayer : Character
             if (!_tile.GetComponent<Tile>()._isOccupied)
             {
                 _playerScore += _tile.GetComponent<Tile>().Score;
-                PlayerLocationIndex = _tile.GetComponent<Tile>().TileLocationIndex;
+                _playerLocationIndex = _tile.GetComponent<Tile>().TileLocationIndex;
                 _uIManager.AIScore.text = "AI Score : "+ _playerScore.ToString();
             }
         }
