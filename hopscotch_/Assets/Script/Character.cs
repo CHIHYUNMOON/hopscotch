@@ -126,8 +126,17 @@ public abstract class Character : MonoBehaviour
                 Check.Add(_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]].GetComponent<Tile>());
             }
         }
+        //foreach (Tile T in Check) {
+        //    if (T._isOccupied) {
+        //        Check.Remove(T);
+        //    }
+        //}
 
-       
+        Debug.Log(GameManager._turnNumber + " : "+ Check.Count);
+        if (Check.Count == 0) {
+            _gameManager.EndGame();
+        
+        }
         return Check;
     }
 

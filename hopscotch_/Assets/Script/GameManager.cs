@@ -125,15 +125,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator WaitUntilChooseTile() {
-        while (true) {
-            if (_player1._isYouSelectTile ||_player2._isYouSelectTile)
-                break;
-            yield return null;
-        }
-        yield return null;
-
-    }
     
 
     //public static void EndGame()
