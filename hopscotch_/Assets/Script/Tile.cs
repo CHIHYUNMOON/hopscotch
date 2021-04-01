@@ -34,7 +34,7 @@ public class Tile : MonoBehaviour
 
     }
 
-   
+    
 
     
 
@@ -52,7 +52,7 @@ public class Tile : MonoBehaviour
                 {                  
                     _gameManager._NextTile = this;
                     _gameManager._Player1._isYouSelectTile = true;
-                    //_gameManager._Player1._PlayerLocationIndex = TileLocationIndex;
+                    _gameManager._Player1._PlayerLocationIndex = TileLocationIndex;
                 }
             }
             else if (_gameManager._Player2.CheckTileCanMove().Contains(this) && GameManager._IsPlayer2Turn) //Distance between tiles is about 1.0f
@@ -61,12 +61,14 @@ public class Tile : MonoBehaviour
                 {
                     _gameManager._NextTile = this;
                     _gameManager._Player2._isYouSelectTile = true;
-                    //_gameManager._Player2._PlayerLocationIndex = TileLocationIndex;
+                    _gameManager._Player2._PlayerLocationIndex = TileLocationIndex;
                 }
             }
 
-        Debug.Log(GameManager._turnNumber.ToString());      
+
+         
     }
+
 
 
 

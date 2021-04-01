@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private static bool _isPlayer2Turn = false;
     public static bool _IsPlayer2Turn { get { return _isPlayer2Turn; } }
     public static bool _isGameStart=false;
-
+    private bool _isGameEnd = false;
 
     public static int _Level  { get { return _level; } }
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TurnChanger()
     {
-        while (true)
+        while (!_isGameEnd)
         {
             if (!_isGameStart)
                 yield return null;
@@ -59,21 +59,26 @@ public class GameManager : MonoBehaviour
                     if (_isPlayer1Turn )
                     {
                         //Player1 turn
+                        Debug.Log("Start Player1 Turn");
                         yield return new WaitUntil(() => _Player1._isYouSelectTile);
-                        _player1.CharacterMove(_nextTile);                        
+                        _player1.CharacterMove(_nextTile);
+                        Debug.Log("End Player1 Turn");
                     }
 
                     else if (_isPlayer2Turn )
                     {
+                        Debug.Log("Start Player2 Turn");
                         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2.0f));
                         //Player2 Turn
-                        _player2.CharacterMove(_nextTile);                     
+                        _player2.CharacterMove(_nextTile);
+                        Debug.Log("End Player2 Turn");
                         _turnNumber++;
+                        
                     }
                     
                 }
-             
-                EndGame(); 
+                
+                StartCoroutine (EndGame()); 
                 _isPlayer1Turn = !_isPlayer1Turn;
                 _isPlayer2Turn = !_isPlayer1Turn;
 
@@ -85,9 +90,10 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void EndGame()
+    IEnumerator  EndGame()
     {
-        bool _isGameEnd = false;       
+        Debug.Log("End Game()");
+        
         if (_isPlayer1Turn)
         {
             if (_player1.CheckTileCanMove().Count == 0)
@@ -107,10 +113,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
         if (_isGameEnd)
         {
             if (_player1.PlayerScore > _player2.PlayerScore)
             {
+                //_player1.Animator.SetBool(_is)
                 Debug.Log("Player1 Win");
             }
             else if (_player1.PlayerScore < _player2.PlayerScore)
@@ -121,8 +129,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Draw");
             }
-
         }
+        yield return null;
     }
 
     
