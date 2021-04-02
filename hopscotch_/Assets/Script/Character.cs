@@ -21,6 +21,7 @@ public abstract class Character : MonoBehaviour
     protected int[] _playerLocationIndex;
     public int[] _PlayerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }
     public bool _isYouSelectTile =false;
+    protected float _moveSpeed = 0.1f;
     //---------------------------------------------------------------------------------
     
 

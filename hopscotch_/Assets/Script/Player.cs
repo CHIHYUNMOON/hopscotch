@@ -6,13 +6,19 @@ public class Player : Character
 {
 
     public override void CharacterMove(Tile nextTile)
-    {   
-            Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
-            Vector3 tmpEuler = tmp.eulerAngles;
-            tmpEuler.x = 0f;
-            gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+    {
+        Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+        Quaternion tmp = Quaternion.LookRotation(LookDirection);
+        Vector3 tmpEuler = tmp.eulerAngles;
+        tmpEuler.x = 0f;
+        gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+
+        _animator.SetBool("isMoving", true);
+        
+            this.gameObject.transform.position += LookDirection.normalized * Time.deltaTime*0.1f ;
             
-            this.gameObject.transform.Translate(Vector3.forward);
+        
+        _animator.SetBool("isMoving", false);
             _isYouSelectTile = false;
     }
 
@@ -35,6 +41,11 @@ public class Player : Character
     public override List<Tile> CheckTileCanMove()
     {
         return base.CheckTileCanMove();
+    }
+
+    private void Update()
+    {
+        
     }
 }
   
