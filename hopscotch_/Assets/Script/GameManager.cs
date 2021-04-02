@@ -120,10 +120,14 @@ public class GameManager : MonoBehaviour
             {
                 //_player1.Animator.SetBool(_is)
                 Debug.Log("Player1 Win");
+                _player1.Animator.SetBool("isWin", true);
+                _player2.Animator.SetBool("isLose", true);
             }
             else if (_player1.PlayerScore < _player2.PlayerScore)
             {
                 Debug.Log("Player2 Win");
+                _player2.Animator.SetBool("isWin", true);
+                _player1.Animator.SetBool("isLose", true);
             }
             else if (_player1.PlayerScore == _player2.PlayerScore)
             {
