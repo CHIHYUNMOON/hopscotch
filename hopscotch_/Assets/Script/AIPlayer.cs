@@ -31,18 +31,18 @@ public class AIPlayer : Character
         _isYouSelectTile = true;
     }
 
-    //public override IEnumerator CharacterMove(Tile nextTile)
-    //{
-
-    //    //---------------------------------------------------------------------------
-    //    //Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
-    //    //Vector3 tmpEuler = tmp.eulerAngles;
-    //    //tmpEuler.x = 0f;
-    //    //gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-    //    //this.gameObject.transform.Translate(Vector3.forward);     
-    //    base.CharacterMove(nextTile);
-    //    yield return null;
-    //}
+    public override IEnumerator CharacterMove(Tile nextTile)
+    {
+        AISelectTile();
+        //---------------------------------------------------------------------------
+        //Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
+        //Vector3 tmpEuler = tmp.eulerAngles;
+        //tmpEuler.x = 0f;
+        //gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+        //this.gameObject.transform.Translate(Vector3.forward);     
+        base.CharacterMove(nextTile);
+        yield return null;
+    }
 
 
     protected override void OnCollisionEnter(Collision collision)

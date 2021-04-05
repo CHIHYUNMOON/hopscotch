@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
    
     public static int _turnNumber=0;
     private static int _level = 1;
-
+    bool _isTest = false;
     private static bool _isPlayer1Turn = true;
     public static bool _IsPlayer1Turn  { get { return _isPlayer1Turn; } set { _isPlayer1Turn = value; } }
 
@@ -58,16 +58,16 @@ public class GameManager : MonoBehaviour
 
                 }
                 else if (_turnNumber > 0)
-                {
-                    
-                    if (_isPlayer1Turn )
+                {                    
+                    if (_isPlayer1Turn)
                     {
                         //Player1 turn
                         Debug.Log("Start Player1 Turn");
                         yield return new WaitUntil(() => _player1._isYouSelectTile);
-                        StartCoroutine(CharacterMove(_nextTile));
+                        //_player1.StartCoroutine(_player1.CharacterMove(_nextTile));
                         //yield return new WaitWhile(() => _player1._isMove);
-                       // _player1.CharacterMove(_nextTile);
+                        // _player1.CharacterMove(_nextTile);
+                        StartCoroutine( CharacterMove(_nextTile));
                         Debug.Log("End Player1 Turn");
                     }
 
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
                         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2.0f));
                         //Player2 Turn
                         //_player2.CharacterMove(_nextTile);
-                        StartCoroutine(CharacterMove(_nextTile));
+                        _player2.StartCoroutine(_player2.CharacterMove(_nextTile));
                         Debug.Log("End Player2 Turn");
                         _turnNumber++;
                         
@@ -93,7 +93,8 @@ public class GameManager : MonoBehaviour
         }          
             
     }
-
+    
+    
 
     IEnumerator  EndGame()
     {
@@ -149,10 +150,12 @@ public class GameManager : MonoBehaviour
         {
             ThisTurnPlayer = _player1;
         }
-        else 
+        else
         {
             ThisTurnPlayer = _player2;
+
         }
+
 
         Vector3 LookDirection = nextTile.gameObject.transform.position - ThisTurnPlayer.gameObject.transform.position;
         Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
@@ -164,10 +167,10 @@ public class GameManager : MonoBehaviour
         {
             ThisTurnPlayer.Animator.SetBool("isMoving", true);
             ThisTurnPlayer.gameObject.transform.position += LookDirection.normalized * 0.1f;
-            
+
             yield return null;
         }
-        else 
+        else
         {
             ThisTurnPlayer.Animator.SetBool("isMoving", false);
             ThisTurnPlayer._isYouSelectTile = false;
@@ -188,6 +191,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(TurnChanger());
+      
     }
     
 }

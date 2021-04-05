@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour 
 {
     private static Character _inst;
     public static Character _Inst { get { return _inst; } }
@@ -46,29 +46,41 @@ public abstract class Character : MonoBehaviour
 
 
     }
-    
-    //public virtual IEnumerator  CharacterMove(Tile nextTile)
-    //{
-    //    Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
-    //    Quaternion tmp = Quaternion.LookRotation(LookDirection);
-    //    Vector3 tmpEuler = tmp.eulerAngles;
-    //    tmpEuler.x = 0f;
-    //    gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-    //    while (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
-    //    {
-    //        transform.position += LookDirection.normalized  *0.1f;
-    //        yield return null;
-    //    }
-    //    //else 
-    //    {           
-    //        _isYouSelectTile = false;
-    //        GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
-    //        GameManager._IsPlayer2Turn = !GameManager._IsPlayer1Turn;
-    //    }
-    //    this.gameObject.transform.Translate(Vector3.forward);
-    //    Debug.Log("Character Move");
-    //    yield return null;
-    //}
+
+
+    public  void DoCharacterMove( Tile nextTile)
+    {
+        StartCoroutine(CharacterMove(nextTile));
+    }
+    public virtual IEnumerator CharacterMove(Tile nextTile)
+    {
+        Debug.Log("Character Move");
+        if (_isYourTurn) {
+            Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+            Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
+            Vector3 tmpEuler = tmpQuat.eulerAngles;
+            tmpEuler.x = 0f;
+            gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+
+            if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
+            {
+                _animator.SetBool("isMoving", true);
+                gameObject.transform.position += LookDirection.normalized * 0.1f;
+
+                yield return null;
+            }
+            else
+            {
+                _animator.SetBool("isMoving", false);
+                _isYouSelectTile = false;
+                GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
+                GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
+                
+            }
+        }
+       
+        yield return null;
+    }
     public virtual List<Tile> CheckTileCanMove()
     {
         List<Tile> Check = new List<Tile>();
