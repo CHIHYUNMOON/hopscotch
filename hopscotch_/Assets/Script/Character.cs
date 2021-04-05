@@ -21,14 +21,16 @@ public abstract class Character : MonoBehaviour
     protected int[] _playerLocationIndex;
     public int[] _PlayerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }
     public bool _isYouSelectTile =false;
+    public bool _isMove = false;
+    public bool _isYourTurn;
     protected float _moveSpeed = 0.1f;
     //---------------------------------------------------------------------------------
-    
+
 
 
 
     //---------------------------------------------------------------------------------
-    public abstract void CharacterMove(Tile nextTile);
+    
     //---------------------------------------------------------------------------------
     protected virtual void Awake()
     {       
@@ -41,8 +43,32 @@ public abstract class Character : MonoBehaviour
             _gameManager._Player1 = this;
         else if (GameManager._IsPlayer2Turn)
             _gameManager._Player2 = this;
-    }
 
+
+    }
+    
+    //public virtual IEnumerator  CharacterMove(Tile nextTile)
+    //{
+    //    Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+    //    Quaternion tmp = Quaternion.LookRotation(LookDirection);
+    //    Vector3 tmpEuler = tmp.eulerAngles;
+    //    tmpEuler.x = 0f;
+    //    gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+    //    while (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
+    //    {
+    //        transform.position += LookDirection.normalized  *0.1f;
+    //        yield return null;
+    //    }
+    //    //else 
+    //    {           
+    //        _isYouSelectTile = false;
+    //        GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
+    //        GameManager._IsPlayer2Turn = !GameManager._IsPlayer1Turn;
+    //    }
+    //    this.gameObject.transform.Translate(Vector3.forward);
+    //    Debug.Log("Character Move");
+    //    yield return null;
+    //}
     public virtual List<Tile> CheckTileCanMove()
     {
         List<Tile> Check = new List<Tile>();
@@ -147,11 +173,12 @@ public abstract class Character : MonoBehaviour
         }
         
 
-        Debug.Log("Turn Number : "+ GameManager._turnNumber + " , "+ this.GetType().ToString() +" : "+ Check.Count);
+        
         
         return Check;
     }
 
+   
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
@@ -165,6 +192,15 @@ public abstract class Character : MonoBehaviour
                 _uIManager.PlayerScore.text = "Player Score : " + _playerScore.ToString();
             }
         }
+    }
+
+    protected virtual void Update()
+    {
+        //if (_isYourTurn && GameManager._turnNumber>0 && _isYouSelectTile) 
+        //{
+        //    CharacterMove(_gameManager._NextTile);
+        //    _isMove = false;
+        //}
     }
 
 }

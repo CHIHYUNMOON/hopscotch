@@ -5,22 +5,24 @@ using UnityEngine;
 public class Player : Character
 {
 
-    public override void CharacterMove(Tile nextTile)
-    {
-        Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
-        Quaternion tmp = Quaternion.LookRotation(LookDirection);
-        Vector3 tmpEuler = tmp.eulerAngles;
-        tmpEuler.x = 0f;
-        gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+    //public override IEnumerator CharacterMove(Tile nextTile)
+    //{
+    //    //Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+    //    //Quaternion tmp = Quaternion.LookRotation(LookDirection);
+    //    //Vector3 tmpEuler = tmp.eulerAngles;
+    //    //tmpEuler.x = 0f;
+    //    //gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
 
-        _animator.SetBool("isMoving", true);
-        
-            this.gameObject.transform.position += LookDirection.normalized * Time.deltaTime*0.1f ;
-            
-        
-        _animator.SetBool("isMoving", false);
-            _isYouSelectTile = false;
-    }
+    //    ////_animator.SetBool("isMoving", true);
+
+    //    ////    this.gameObject.transform.position += LookDirection.normalized * Time.deltaTime*0.1f ;
+
+
+    //    //_animator.SetBool("isMoving", false);
+    //    //    _isYouSelectTile = false;
+    //    base.CharacterMove(nextTile);
+    //    yield return null;
+    //}
 
    
 
@@ -43,9 +45,9 @@ public class Player : Character
         return base.CheckTileCanMove();
     }
 
-    private void Update()
+    protected override  void Update()
     {
-        
+        base.Update();
     }
 }
   

@@ -9,7 +9,7 @@ public class AIPlayer : Character
         return base.CheckTileCanMove();
     }
 
-    public Tile AISelectTile()
+    public void AISelectTile()
     {
         List<Tile> Check = CheckTileCanMove();
         Tile tmp = null;
@@ -27,19 +27,22 @@ public class AIPlayer : Character
             }
         }
         _playerLocationIndex = tmp.TileLocationIndex;
-        return tmp;
+        _gameManager._NextTile = tmp;
+        _isYouSelectTile = true;
     }
 
-    public override void CharacterMove(Tile nextTile)
-    {
-        nextTile = AISelectTile();//Ai Select Tile by score on Tile
-        //---------------------------------------------------------------------------
-        Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
-        Vector3 tmpEuler = tmp.eulerAngles;
-        tmpEuler.x = 0f;
-        gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-        this.gameObject.transform.Translate(Vector3.forward);     
-    }
+    //public override IEnumerator CharacterMove(Tile nextTile)
+    //{
+
+    //    //---------------------------------------------------------------------------
+    //    //Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
+    //    //Vector3 tmpEuler = tmp.eulerAngles;
+    //    //tmpEuler.x = 0f;
+    //    //gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+    //    //this.gameObject.transform.Translate(Vector3.forward);     
+    //    base.CharacterMove(nextTile);
+    //    yield return null;
+    //}
 
 
     protected override void OnCollisionEnter(Collision collision)
@@ -61,7 +64,12 @@ public class AIPlayer : Character
     protected override void Awake()
     {
         base.Awake();
-        _isYouSelectTile = true;
+        
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 
 }
