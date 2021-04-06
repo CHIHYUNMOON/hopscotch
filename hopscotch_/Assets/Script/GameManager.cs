@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private static bool _isPlayer2Turn = false;
     public static bool _IsPlayer2Turn { get { return _isPlayer2Turn; } set { _isPlayer2Turn = value; } }
     public static bool _isGameStart=false;
-    private bool _isGameEnd = false;
+    public bool _isGameEnd = false;
 
     public static int _Level  { get { return _level; } }
 
@@ -61,13 +61,13 @@ public class GameManager : MonoBehaviour
                 {                    
                     if (_isPlayer1Turn)
                     {
+                        
                         //Player1 turn
                         Debug.Log("Start Player1 Turn");
                         yield return new WaitUntil(() => _player1._isYouSelectTile);
-                        //_player1.StartCoroutine(_player1.CharacterMove(_nextTile));
-                        //yield return new WaitWhile(() => _player1._isMove);
-                        // _player1.CharacterMove(_nextTile);
-                        StartCoroutine( CharacterMove(_nextTile));
+                        //yield return null;
+                        yield return StartCoroutine(_player1.CharacterMove(_nextTile));
+                        //yield return new WaitUntil(() => _isPlayer2Turn);
                         Debug.Log("End Player1 Turn");
                     }
 
@@ -77,12 +77,16 @@ public class GameManager : MonoBehaviour
                         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2.0f));
                         //Player2 Turn
                         //_player2.CharacterMove(_nextTile);
-                        _player2.StartCoroutine(_player2.CharacterMove(_nextTile));
+                        //_player2.StartCoroutine(_player2.CharacterMove(_nextTile));
                         Debug.Log("End Player2 Turn");
                         _turnNumber++;
                         
                     }
                     StartCoroutine(EndGame());
+                    //_isPlayer1Turn = !_isPlayer1Turn;
+                    //_isPlayer2Turn = !_isPlayer1Turn;
+                    //_player1._isYourTurn = _isPlayer1Turn;
+                    //_player2._isYourTurn = _isPlayer2Turn;
                 }
                 
                 
@@ -143,51 +147,52 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    public virtual IEnumerator CharacterMove(Tile nextTile)
-    {
-        Character ThisTurnPlayer;
-        if (_isPlayer1Turn)
-        {
-            ThisTurnPlayer = _player1;
-        }
-        else
-        {
-            ThisTurnPlayer = _player2;
+    //public virtual IEnumerator CharacterMove(Tile nextTile)
+    //{
+    //    Character ThisTurnPlayer;
+    //    if (_isPlayer1Turn)
+    //    {
+    //        ThisTurnPlayer = _player1;
+    //    }
+    //    else
+    //    {
+    //        ThisTurnPlayer = _player2;
 
-        }
+    //    }
 
 
-        Vector3 LookDirection = nextTile.gameObject.transform.position - ThisTurnPlayer.gameObject.transform.position;
-        Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
-        Vector3 tmpEuler = tmpQuat.eulerAngles;
-        tmpEuler.x = 0f;
+    //    Vector3 LookDirection = nextTile.gameObject.transform.position - ThisTurnPlayer.gameObject.transform.position;
+    //    Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
+    //    Vector3 tmpEuler = tmpQuat.eulerAngles;
+    //    tmpEuler.x = 0f;
 
-        ThisTurnPlayer.gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-        if (Vector3.Distance(nextTile.gameObject.transform.position, ThisTurnPlayer.gameObject.transform.position) > 0.3f)
-        {
-            ThisTurnPlayer.Animator.SetBool("isMoving", true);
-            ThisTurnPlayer.gameObject.transform.position += LookDirection.normalized * 0.1f;
+    //    ThisTurnPlayer.gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+    //    if (Vector3.Distance(nextTile.gameObject.transform.position, ThisTurnPlayer.gameObject.transform.position) > 0.3f)
+    //    {
+    //        ThisTurnPlayer.Animator.SetBool("isMoving", true);
+    //        ThisTurnPlayer.gameObject.transform.position += LookDirection.normalized * 0.1f;
 
-            yield return null;
-        }
-        else
-        {
-            ThisTurnPlayer.Animator.SetBool("isMoving", false);
-            ThisTurnPlayer._isYouSelectTile = false;
-            _isPlayer1Turn = !_isPlayer1Turn;
-            _isPlayer2Turn = !_isPlayer1Turn;
-            yield return null;
-        }
-        //this.gameObject.transform.Translate(Vector3.forward);
-        Debug.Log("Character Move");
-        yield return null;
-    }
+    //        yield return null;
+    //    }
+    //    else
+    //    {
+    //        ThisTurnPlayer.Animator.SetBool("isMoving", false);
+    //        ThisTurnPlayer._isYouSelectTile = false;
+    //        _isPlayer1Turn = !_isPlayer1Turn;
+    //        _isPlayer2Turn = !_isPlayer1Turn;
+    //        yield return null;
+    //    }
+    //    //this.gameObject.transform.Translate(Vector3.forward);
+    //    Debug.Log("Character Move");
+    //    yield return null;
+    //}
 
     void Awake()
     {
         _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         
     }
+
     private void Start()
     {
         StartCoroutine(TurnChanger());

@@ -32,7 +32,10 @@ public class Player : Character
     }
     //------------------------------------------
 
-    
+    protected override void Start()
+    {
+        base.Start();
+    }
 
 
     protected override void OnCollisionEnter(Collision collision)
@@ -45,9 +48,7 @@ public class Player : Character
         return base.CheckTileCanMove();
     }
 
-    protected override  void Update()
-    {
-        base.Update();
-    }
+    
+    
 }
   

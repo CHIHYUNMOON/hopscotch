@@ -55,32 +55,40 @@ public abstract class Character : MonoBehaviour
     public virtual IEnumerator CharacterMove(Tile nextTile)
     {
         Debug.Log("Character Move");
-        if (_isYourTurn) {
-            Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
-            Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
-            Vector3 tmpEuler = tmpQuat.eulerAngles;
-            tmpEuler.x = 0f;
-            gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+        while (!_gameManager._isGameEnd)
+        {
 
-            if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
+            if (_isYourTurn && _isYouSelectTile)
             {
-                _animator.SetBool("isMoving", true);
-                gameObject.transform.position += LookDirection.normalized * 0.1f;
+                Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+                Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
+                Vector3 tmpEuler = tmpQuat.eulerAngles;
+                tmpEuler.x = 0f;
+                gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
 
-                yield return null;
+                if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
+                {
+                    _animator.SetBool("isMoving", true);
+                    gameObject.transform.position += LookDirection.normalized * 0.1f;
+
+                    yield return null;
+                }
+                else
+                {
+                    _animator.SetBool("isMoving", false);
+                    _isYouSelectTile = false;
+                    GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
+                    GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
+
+                }
             }
-            else
-            {
-                _animator.SetBool("isMoving", false);
-                _isYouSelectTile = false;
-                GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
-                GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
-                
-            }
+
+
+            yield return null;
         }
-       
-        yield return null;
     }
+
+
     public virtual List<Tile> CheckTileCanMove()
     {
         List<Tile> Check = new List<Tile>();
@@ -206,13 +214,44 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
+    
+    protected virtual void Update() 
     {
-        //if (_isYourTurn && GameManager._turnNumber>0 && _isYouSelectTile) 
-        //{
-        //    CharacterMove(_gameManager._NextTile);
-        //    _isMove = false;
-        //}
+        while (!_gameManager._isGameEnd)
+        {
+            Tile nextTile = _gameManager._NextTile;
+            if (_isYourTurn && _isYouSelectTile)
+            {
+                Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+                Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
+                Vector3 tmpEuler = tmpQuat.eulerAngles;
+                tmpEuler.x = 0f;
+                gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+
+                if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
+                {
+                    _animator.SetBool("isMoving", true);
+                    gameObject.transform.position += LookDirection.normalized * 0.1f;
+
+                    
+                }
+                else
+                {
+                    _animator.SetBool("isMoving", false);
+                    _isYouSelectTile = false;
+                    GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
+                    GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
+                    
+                }
+            }
+
+           
+        }
+
+    }
+    protected virtual void Start()
+    {
+       // StartCoroutine(CharacterMove(_gameManager._NextTile));
     }
 
 }
