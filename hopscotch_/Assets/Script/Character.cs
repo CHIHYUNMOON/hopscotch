@@ -50,12 +50,13 @@ public abstract class Character : MonoBehaviour
 
     public  void DoCharacterMove( Tile nextTile)
     {
-        StartCoroutine(CharacterMove(nextTile));
+        //StartCoroutine(CharacterMove(nextTile));
     }
-    public virtual IEnumerator CharacterMove(Tile nextTile)
+
+    public virtual void CharacterMove(Tile nextTile)
     {
-        Debug.Log("Character Move");
-        while (!_gameManager._isGameEnd)
+        
+        if (!_gameManager._isGameEnd)
         {
 
             if (_isYourTurn && _isYouSelectTile)
@@ -66,25 +67,25 @@ public abstract class Character : MonoBehaviour
                 tmpEuler.x = 0f;
                 gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
 
-                if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
+                if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.2f)
                 {
                     _animator.SetBool("isMoving", true);
-                    gameObject.transform.position += LookDirection.normalized * 0.1f;
-
-                    yield return null;
+                    gameObject.transform.position += LookDirection.normalized * 0.01f;
+           
                 }
                 else
                 {
                     _animator.SetBool("isMoving", false);
                     _isYouSelectTile = false;
+                    _isYourTurn = false;
+                    //this.gameObject.transform.Translate(0,0,0);
                     GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
                     GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
-
                 }
             }
 
 
-            yield return null;
+           
         }
     }
 
@@ -217,37 +218,8 @@ public abstract class Character : MonoBehaviour
     
     protected virtual void Update() 
     {
-        while (!_gameManager._isGameEnd)
-        {
-            Tile nextTile = _gameManager._NextTile;
-            if (_isYourTurn && _isYouSelectTile)
-            {
-                Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
-                Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
-                Vector3 tmpEuler = tmpQuat.eulerAngles;
-                tmpEuler.x = 0f;
-                gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-
-                if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.01f)
-                {
-                    _animator.SetBool("isMoving", true);
-                    gameObject.transform.position += LookDirection.normalized * 0.1f;
-
-                    
-                }
-                else
-                {
-                    _animator.SetBool("isMoving", false);
-                    _isYouSelectTile = false;
-                    GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
-                    GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
-                    
-                }
-            }
-
-           
-        }
-
+      
+        CharacterMove(_gameManager._NextTile);
     }
     protected virtual void Start()
     {

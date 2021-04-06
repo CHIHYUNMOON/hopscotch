@@ -61,28 +61,27 @@ public class GameManager : MonoBehaviour
                 {                    
                     if (_isPlayer1Turn)
                     {
-                        
+                        _player1._isYourTurn = _isPlayer1Turn;
                         //Player1 turn
                         Debug.Log("Start Player1 Turn");
                         yield return new WaitUntil(() => _player1._isYouSelectTile);
-                        //yield return null;
-                        yield return StartCoroutine(_player1.CharacterMove(_nextTile));
-                        //yield return new WaitUntil(() => _isPlayer2Turn);
+                        yield return new WaitUntil(() => !_player1._isYourTurn);
                         Debug.Log("End Player1 Turn");
                     }
 
                     else if (_isPlayer2Turn )
                     {
+                        _player2._isYourTurn = _IsPlayer2Turn;
                         Debug.Log("Start Player2 Turn");
                         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2.0f));
-                        //Player2 Turn
-                        //_player2.CharacterMove(_nextTile);
-                        //_player2.StartCoroutine(_player2.CharacterMove(_nextTile));
+                        if (!_player2 is AIPlayer)
+                        yield return new WaitUntil(() => _player2._isYouSelectTile);
+                        yield return new WaitUntil(() => !_player2._isYourTurn);
                         Debug.Log("End Player2 Turn");
                         _turnNumber++;
                         
                     }
-                    StartCoroutine(EndGame());
+                    EndGame();
                     //_isPlayer1Turn = !_isPlayer1Turn;
                     //_isPlayer2Turn = !_isPlayer1Turn;
                     //_player1._isYourTurn = _isPlayer1Turn;
@@ -97,10 +96,10 @@ public class GameManager : MonoBehaviour
         }          
             
     }
-    
-    
 
-    IEnumerator  EndGame()
+
+
+    private void EndGame()
     {
         
         
@@ -144,7 +143,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Draw");
             }
         }
-        yield return null;
+       // yield return null;
     }
 
     //public virtual IEnumerator CharacterMove(Tile nextTile)

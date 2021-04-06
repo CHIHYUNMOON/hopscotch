@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Character
 {
 
-    public override IEnumerator CharacterMove(Tile nextTile)
+    public override void CharacterMove(Tile nextTile)
     {
         //Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
         //Quaternion tmp = Quaternion.LookRotation(LookDirection);
@@ -21,9 +21,8 @@ public class Player : Character
         //_animator.SetBool("isMoving", false);
         //    _isYouSelectTile = false;
         base.CharacterMove(nextTile);
-        yield return null;
+        
     }
-
 
 
     protected override void Awake()
@@ -48,7 +47,11 @@ public class Player : Character
         return base.CheckTileCanMove();
     }
 
-    
-    
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+
 }
   

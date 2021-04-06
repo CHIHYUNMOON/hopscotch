@@ -40,13 +40,21 @@ public class Tile : MonoBehaviour
 
 
     private void OnMouseDown()
-    {      
+    {
+        
+
+        
+
             if (GameManager._turnNumber == 0)
             {
                 GameManager._isGameStart = true;                
                 _gameManager._NextTile = this;               
             }
-            else if (_gameManager._Player1.CheckTileCanMove().Contains(this) && GameManager._IsPlayer1Turn) //Distance between tiles is about 1.0f
+
+            if (_gameManager._Player1._isYouSelectTile ||_gameManager._Player2._isYouSelectTile)
+                     return;
+
+            if (_gameManager._Player1.CheckTileCanMove().Contains(this) && GameManager._IsPlayer1Turn) //Distance between tiles is about 1.0f
             {
                 if (!_isOccupied)
                 {                  

@@ -11,37 +11,68 @@ public class AIPlayer : Character
 
     public void AISelectTile()
     {
-        List<Tile> Check = CheckTileCanMove();
-        Tile tmp = null;
-        int MaxScore = 0;
-
-        foreach (Tile T in Check)
+        if (!_isYouSelectTile)
         {
-            if (!T._isOccupied)
+            List<Tile> Check = CheckTileCanMove();
+            Tile tmp = null;
+            int MaxScore = 0;
+
+            foreach (Tile T in Check)
             {
-                if (T.Score > MaxScore)
+                if (!T._isOccupied)
                 {
-                    MaxScore = T.Score;
-                    tmp = T;
+                    if (T.Score > MaxScore)
+                    {
+                        MaxScore = T.Score;
+                        tmp = T;
+                    }
                 }
             }
+            _playerLocationIndex = tmp.TileLocationIndex;
+            _gameManager._NextTile = tmp;
+            _isYouSelectTile = true;
         }
-        _playerLocationIndex = tmp.TileLocationIndex;
-        _gameManager._NextTile = tmp;
-        _isYouSelectTile = true;
+       
     }
 
-    public override IEnumerator CharacterMove(Tile nextTile)
+    public override void CharacterMove(Tile nextTile)
     {
-        AISelectTile();
-        //---------------------------------------------------------------------------
-        //Quaternion tmp = Quaternion.LookRotation(nextTile.gameObject.transform.position - this.gameObject.transform.position);
-        //Vector3 tmpEuler = tmp.eulerAngles;
-        //tmpEuler.x = 0f;
-        //gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-        //this.gameObject.transform.Translate(Vector3.forward);     
-        base.CharacterMove(nextTile);
-        yield return null;
+       
+
+        if (!_gameManager._isGameEnd)
+        {
+
+            if (_isYourTurn )
+            {
+                AISelectTile();
+                if (_isYouSelectTile)
+                {
+                    
+                    Vector3 LookDirection = nextTile.gameObject.transform.position - this.gameObject.transform.position;
+                    Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
+                    Vector3 tmpEuler = tmpQuat.eulerAngles;
+                    tmpEuler.x = 0f;
+                    gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
+
+                    if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.2f)
+                    {
+                        _animator.SetBool("isMoving", true);
+                        gameObject.transform.position += LookDirection.normalized * 0.01f;
+
+
+                    }
+                    else
+                    {
+                        _animator.SetBool("isMoving", false);
+                        _isYouSelectTile = false;
+                        _isYourTurn = false;
+                        GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
+                        GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
+                    }
+                }
+                
+            }
+        }
     }
 
 
@@ -64,11 +95,12 @@ public class AIPlayer : Character
     protected override void Awake()
     {
         base.Awake();
-        
+      
     }
 
     protected override void Update()
     {
+        
         base.Update();
     }
 
