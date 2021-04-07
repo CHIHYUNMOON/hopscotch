@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
    
     public static int _turnNumber=0;
     private static int _level = 1;
-    bool _isTest = false;
+    
     private static bool _isPlayer1Turn = true;
     public static bool _IsPlayer1Turn  { get { return _isPlayer1Turn; } set { _isPlayer1Turn = value; } }
 
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
                         Debug.Log("Start Player1 Turn");
                         yield return new WaitUntil(() => _player1._isYouSelectTile);
                         yield return new WaitUntil(() => !_player1._isYourTurn);
+                        yield return new WaitUntil(() => !_player1._isMove);
                         Debug.Log("End Player1 Turn");
                     }
 
@@ -77,15 +78,15 @@ public class GameManager : MonoBehaviour
                         if (!_player2 is AIPlayer)
                         yield return new WaitUntil(() => _player2._isYouSelectTile);
                         yield return new WaitUntil(() => !_player2._isYourTurn);
+                        yield return new WaitUntil(() => !_player2._isMove);
                         Debug.Log("End Player2 Turn");
                         _turnNumber++;
                         
                     }
+                    
+                    
                     EndGame();
-                    //_isPlayer1Turn = !_isPlayer1Turn;
-                    //_isPlayer2Turn = !_isPlayer1Turn;
-                    //_player1._isYourTurn = _isPlayer1Turn;
-                    //_player2._isYourTurn = _isPlayer2Turn;
+                   
                 }
                 
                 
@@ -143,48 +144,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Draw");
             }
         }
-       // yield return null;
+      
     }
 
-    //public virtual IEnumerator CharacterMove(Tile nextTile)
-    //{
-    //    Character ThisTurnPlayer;
-    //    if (_isPlayer1Turn)
-    //    {
-    //        ThisTurnPlayer = _player1;
-    //    }
-    //    else
-    //    {
-    //        ThisTurnPlayer = _player2;
-
-    //    }
-
-
-    //    Vector3 LookDirection = nextTile.gameObject.transform.position - ThisTurnPlayer.gameObject.transform.position;
-    //    Quaternion tmpQuat = Quaternion.LookRotation(LookDirection);
-    //    Vector3 tmpEuler = tmpQuat.eulerAngles;
-    //    tmpEuler.x = 0f;
-
-    //    ThisTurnPlayer.gameObject.transform.rotation = Quaternion.Euler(tmpEuler);
-    //    if (Vector3.Distance(nextTile.gameObject.transform.position, ThisTurnPlayer.gameObject.transform.position) > 0.3f)
-    //    {
-    //        ThisTurnPlayer.Animator.SetBool("isMoving", true);
-    //        ThisTurnPlayer.gameObject.transform.position += LookDirection.normalized * 0.1f;
-
-    //        yield return null;
-    //    }
-    //    else
-    //    {
-    //        ThisTurnPlayer.Animator.SetBool("isMoving", false);
-    //        ThisTurnPlayer._isYouSelectTile = false;
-    //        _isPlayer1Turn = !_isPlayer1Turn;
-    //        _isPlayer2Turn = !_isPlayer1Turn;
-    //        yield return null;
-    //    }
-    //    //this.gameObject.transform.Translate(Vector3.forward);
-    //    Debug.Log("Character Move");
-    //    yield return null;
-    //}
+    
 
     void Awake()
     {

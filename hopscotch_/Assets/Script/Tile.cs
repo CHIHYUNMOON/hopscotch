@@ -40,41 +40,36 @@ public class Tile : MonoBehaviour
 
 
     private void OnMouseDown()
-    {
-        
-
-        
-
-            if (GameManager._turnNumber == 0)
-            {
-                GameManager._isGameStart = true;                
-                _gameManager._NextTile = this;               
+    {       
+        if (GameManager._turnNumber == 0)
+        {
+            GameManager._isGameStart = true;                
+            _gameManager._NextTile = this;               
+        }
+        if (_gameManager._Player1 == null || _gameManager._Player2 == null)
+            return;
+        if (_gameManager._Player1.CheckTileCanMove().Contains(this) && GameManager._IsPlayer1Turn) //Distance between tiles is about 1.0f
+        {
+            if (_gameManager._Player1._isYouSelectTile || _gameManager._Player2._isYouSelectTile)
+                return;
+            if (!_isOccupied)
+            {                  
+                _gameManager._NextTile = this;
+                _gameManager._Player1._isYouSelectTile = true;
+                _gameManager._Player1._PlayerLocationIndex = TileLocationIndex;
             }
-
-            if (_gameManager._Player1._isYouSelectTile ||_gameManager._Player2._isYouSelectTile)
-                     return;
-
-            if (_gameManager._Player1.CheckTileCanMove().Contains(this) && GameManager._IsPlayer1Turn) //Distance between tiles is about 1.0f
+        }
+        else if (_gameManager._Player2.CheckTileCanMove().Contains(this) && GameManager._IsPlayer2Turn) //Distance between tiles is about 1.0f
+        {
+            if (_gameManager._Player1._isYouSelectTile || _gameManager._Player2._isYouSelectTile)
+                return;
+            if (!_isOccupied)
             {
-                if (!_isOccupied)
-                {                  
-                    _gameManager._NextTile = this;
-                    _gameManager._Player1._isYouSelectTile = true;
-                    _gameManager._Player1._PlayerLocationIndex = TileLocationIndex;
-                }
+                _gameManager._NextTile = this;
+                _gameManager._Player2._isYouSelectTile = true;
+                _gameManager._Player2._PlayerLocationIndex = TileLocationIndex;
             }
-            else if (_gameManager._Player2.CheckTileCanMove().Contains(this) && GameManager._IsPlayer2Turn) //Distance between tiles is about 1.0f
-            {
-                if (!_isOccupied)
-                {
-                    _gameManager._NextTile = this;
-                    _gameManager._Player2._isYouSelectTile = true;
-                    _gameManager._Player2._PlayerLocationIndex = TileLocationIndex;
-                }
-            }
-
-
-         
+        }     
     }
 
 

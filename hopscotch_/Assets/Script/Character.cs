@@ -47,11 +47,7 @@ public abstract class Character : MonoBehaviour
 
     }
 
-
-    public  void DoCharacterMove( Tile nextTile)
-    {
-        //StartCoroutine(CharacterMove(nextTile));
-    }
+    
 
     public virtual void CharacterMove(Tile nextTile)
     {
@@ -71,6 +67,7 @@ public abstract class Character : MonoBehaviour
                 {
                     _animator.SetBool("isMoving", true);
                     gameObject.transform.position += LookDirection.normalized * 0.01f;
+                    _isMove = true;
            
                 }
                 else
@@ -81,6 +78,7 @@ public abstract class Character : MonoBehaviour
                     //this.gameObject.transform.Translate(0,0,0);
                     GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
                     GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
+                    _isMove = false;
                 }
             }
 
@@ -95,24 +93,24 @@ public abstract class Character : MonoBehaviour
         List<Tile> Check = new List<Tile>();
         if (_playerLocationIndex[0] < 4)
         {
-            if (_playerLocationIndex[0] - 1 >= 0 && _playerLocationIndex[1] - 1 >= 0 )
+            if (_playerLocationIndex[0] - 1 >= 0 && _playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied) 
-                Check.Add(_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] - 1].GetComponent<Tile>());
+                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
+                    Check.Add(_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[0] - 1 >= 0 && _playerLocationIndex[1] <= _mapController._MapSize[_playerLocationIndex[0] - 1] - 1)
             {
-                if(!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1]].GetComponent<Tile>()._isOccupied)
-                Check.Add(_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1]].GetComponent<Tile>());
+                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1]].GetComponent<Tile>()._isOccupied)
+                    Check.Add(_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1]].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1]-1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0]] - 1)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1]+1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] + 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] + 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1)
@@ -122,7 +120,7 @@ public abstract class Character : MonoBehaviour
             }
             if (_playerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1 && _playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0] + 1] - 1)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]+1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1] + 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1] + 1].GetComponent<Tile>());
             }
         }
@@ -130,7 +128,7 @@ public abstract class Character : MonoBehaviour
         {
             if (_playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1]-1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] <= _mapController._MapSize[_playerLocationIndex[0] - 1] - 1)
@@ -140,20 +138,20 @@ public abstract class Character : MonoBehaviour
             }
             if (_playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1]-1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0]] - 1)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1]+1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] + 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] + 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]-1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
-            if (_playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0] + 1] - 1)
+            if (_playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0] + 1])
             {
                 if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]].GetComponent<Tile>());
@@ -168,22 +166,22 @@ public abstract class Character : MonoBehaviour
             }
             if (_playerLocationIndex[0] - 1 >= 0 && _playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0] - 1] - 1)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1]+1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] + 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] - 1][_playerLocationIndex[1] + 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1]-1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[1] + 1 <= _mapController._MapSize[_playerLocationIndex[0]] - 1)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1]+1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] + 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0]][_playerLocationIndex[1] + 1].GetComponent<Tile>());//error
             }
             if (_playerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1 && _playerLocationIndex[1] - 1 >= 0)
             {
-                if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]-1].GetComponent<Tile>()._isOccupied)
+                if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1] - 1].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1] - 1].GetComponent<Tile>());
             }
             if (_playerLocationIndex[0] + 1 <= _mapController._MapSize.Length - 1 && _playerLocationIndex[1] <= _mapController._MapSize[_playerLocationIndex[0] + 1] - 1)
@@ -191,11 +189,7 @@ public abstract class Character : MonoBehaviour
                 if (!_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]].GetComponent<Tile>()._isOccupied)
                     Check.Add(_mapController._MapTile[_playerLocationIndex[0] + 1][_playerLocationIndex[1]].GetComponent<Tile>());
             }
-        }
-        
-
-        
-        
+        }  
         return Check;
     }
 
