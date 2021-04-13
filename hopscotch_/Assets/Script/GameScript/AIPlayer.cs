@@ -57,7 +57,7 @@ public class AIPlayer : Character
                     if (Vector3.Distance(nextTile.gameObject.transform.position, this.gameObject.transform.position) > 0.2f)
                     {
                         _animator.SetBool("isMoving", true);
-                        gameObject.transform.position += LookDirection.normalized * 0.01f;
+                        gameObject.transform.position += LookDirection.normalized * Time.deltaTime *1.0f;
 
 
                     }

@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
             }
             _uIManager.ToMainMenuBT.gameObject.SetActive(true);
             _uIManager.RestartBT.gameObject.SetActive(true);
+            
         }
       
     }
@@ -148,6 +149,11 @@ public class GameManager : MonoBehaviour
     {
         _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _turnNumber = 0;
+        _isPlayer1Turn = true;
+        _isPlayer2Turn = false;
+        _isGameEnd = false;
+        _isGameStart = false;
     }
 
     private void Start()
