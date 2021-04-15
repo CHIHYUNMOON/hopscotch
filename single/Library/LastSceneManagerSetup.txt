@@ -1,0 +1,6 @@
+sceneSetups:
+- path: Assets/[_MyPlugin_]/_EDIT & SYSTEM/_EDIT/__Global/Singleton/_sample/_scene/test
+    1.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
