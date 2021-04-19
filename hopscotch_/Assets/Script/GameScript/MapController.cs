@@ -59,8 +59,8 @@ public class MapController : MonoBehaviour
             {
                 if (i <= _sidelength)
                 {                    
-                    MapArr[i][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * i);
-                    MapArr[height-i-1][j] = new Vector3(-0.5f * i + j, 0.0f, 0.866f * (height-i-1));
+                    MapArr[i][j] = new Vector3(-0.5f * i + j-2f, 0.0f, 0.866f * i - 3.464f);
+                    MapArr[height-i-1][j] = new Vector3(-0.5f * i + j-2f, 0.0f, 0.866f * (height-i-1) -3.464f);
                    
                 }     
             }

@@ -19,10 +19,7 @@ public class Player : Character
     }
     //------------------------------------------
 
-    protected override void Start()
-    {
-        base.Start();
-    }
+   
 
 
     protected override void OnCollisionEnter(Collision collision)

@@ -39,12 +39,6 @@ public abstract class Character : MonoBehaviour
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _animator = GetComponent<Animator>();
-        if (GameManager._IsPlayer1Turn)
-            _gameManager._Player1 = this;
-        else if (GameManager._IsPlayer2Turn)
-            _gameManager._Player2 = this;
-
-
     }
 
     
@@ -87,6 +81,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    
 
     public virtual List<Tile> CheckTileCanMove()
     {
@@ -211,13 +206,23 @@ public abstract class Character : MonoBehaviour
 
     
     protected virtual void Update() 
-    {
-      
+    {     
         CharacterMove(_gameManager._NextTile);
     }
-    protected virtual void Start()
+
+    protected virtual void OnMouseDown() 
     {
-       // StartCoroutine(CharacterMove(_gameManager._NextTile));
+        if (!GameManager._isGameStart) 
+        {
+            if (GameManager._IsPlayer1Turn)
+            {
+                GameManager._Player1 = this;
+            }
+            else {
+                GameManager._Player2 = this;
+            }
+        }
+    
     }
 
 }

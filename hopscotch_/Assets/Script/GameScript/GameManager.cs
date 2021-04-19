@@ -5,25 +5,31 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private  Character _player1;
-    public Character _Player1 { get { return _player1; } set { _player1 = value; } }
-    private Character _player2;
-    public Character _Player2 { get { return _player2; } set { _player2 = value; } }
+    //---------------------------------------------------------------------------------------------------------
+    private static Character _player1;
+    public static Character _Player1 { get { return _player1; } set { _player1 = value; } }
+    private static Character _player2;
+    public static Character _Player2 { get { return _player2; } set { _player2 = value; } }
+    //---------------------------------------------------------------------------------------------------------
     private MapController _mapController;
     private UIManager _uIManager;
     public static int _turnNumber=0;
     private static int _level = 1;
-    
+    //---------------------------------------------------------------------------------------------------------
     private static bool _isPlayer1Turn = true;
     public static bool _IsPlayer1Turn  { get { return _isPlayer1Turn; } set { _isPlayer1Turn = value; } }
-
     private static bool _isPlayer2Turn = false;
     public static bool _IsPlayer2Turn { get { return _isPlayer2Turn; } set { _isPlayer2Turn = value; } }
+    //---------------------------------------------------------------------------------------------------------
     public static bool _isGameStart=false;
     public bool _isGameEnd = false;
-
     public static int _Level  { get { return _level; } }
 
+    //---------------------------------------------------------------------------------------------------------
+    [SerializeField]
+    private GameObject[] CharacterArr;
+    
+    //---------------------------------------------------------------------------------------------------------
 
 
     private Tile _nextTile;
@@ -32,31 +38,35 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TurnChanger()
     {
+
         while (!_isGameEnd)
         {
-            
-            if (!_isGameStart)
+            if (!_isGameStart) {
+                //Choose Char
+
+
                 yield return null;
+            }
+               
             else
             {
                 if (_turnNumber == 0)
                 {
-                    //creat Player & AI
+                    //Creat Player & AI
                     if (_isPlayer1Turn)
-                    {
-                        
+                    {                       
                         _mapController.CreateCharacter(_nextTile);
                     }
                     else if(_isPlayer2Turn)
                     {
                         yield return new WaitForSeconds(1.0f);
                         _mapController.CreateCharacter(null);
-                        _turnNumber++; //Finish First turn
+                        _turnNumber++; 
                     }
                     _isPlayer1Turn = !_isPlayer1Turn;
                     _isPlayer2Turn = !_isPlayer1Turn;
-
                 }
+
                 else if (_turnNumber > 0)
                 {                    
                     if (_isPlayer1Turn)
@@ -137,10 +147,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Draw");
             }
             _uIManager.ToMainMenuBT.gameObject.SetActive(true);
-            _uIManager.RestartBT.gameObject.SetActive(true);
-            
-        }
-      
+            _uIManager.RestartBT.gameObject.SetActive(true);           
+        }    
     }
 
     
@@ -158,6 +166,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        
         StartCoroutine(TurnChanger());
       
     }

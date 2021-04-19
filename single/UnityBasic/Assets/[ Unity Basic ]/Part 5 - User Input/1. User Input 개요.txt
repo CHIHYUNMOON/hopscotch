@@ -1,0 +1,60 @@
+﻿=============================================================
+1. User Input 개요 ...
+[
+	참고 :	https://docs.unity3d.com/kr/2019.3/Manual/class-InputManager.html
+			https://forum.unity.com/threads/display-resolution-dialog-deprecation.793611/
+			https://blog.naver.com/tlatjagks123/221759830693
+			https://docs.unity3d.com/ScriptReference/Input.GetAxis.html
+			https://docs.unity3d.com/ScriptReference/Input.GetAxisRaw.html
+			https://docs.unity3d.com/ScriptReference/Input.GetAxis.html
+			https://docs.unity3d.com/ScriptReference/Input.GetAxisRaw.html
+			https://docs.unity3d.com/ScriptReference/Input.GetKey.html
+]
+=============================================================
+---------------------
+@	User Input
+---------------------
+	
+	-------------------
+	0)	Input Manager
+	-------------------
+
+		-	참고 :	https://docs.unity3d.com/kr/2019.3/Manual/class-InputManager.html
+					https://forum.unity.com/threads/display-resolution-dialog-deprecation.793611/
+		-	메뉴 > Edit > Project Settings > Input Manager > Axes에 세팅되어 있음.
+		
+		-	주요 속성.
+			참고 : https://blog.naver.com/tlatjagks123/221759830693
+			-	Size
+				-	현재 등록된 컨트롤 정보 갯수.
+				-	새로운 컨트롤을 추가하려면 
+					추가하려는 갯수 만큼 수치를 증가시킬 것.
+
+			-	Name
+				-	축 이름. 스크립트 상에서 축 정보를 참조할 문자열.
+				-	주로 기능을 명시.
+
+			-	Negative / Positive  Button
+				-	스크립트에서 축 이름으로 컨트롤 적용시
+					축 이름에 대한 음수 / 양수 값을 전달하는 버튼.
+
+			-	Alt Negative / Positive  Button
+				-	Negative / Positive  Button와 동일한 기능을 하는
+					일종의 보조 버튼.
+
+			-	Gravity
+				-	입력값이 다시 리셋되는 속도.
+				-	Type > key / mouse button 전용.
+
+			-	Sensitivity
+				-	입력 축 값에 대한 반응 속도.
+
+			-	Type
+				-	축의 사용용도 타입.
+				-	종류
+					-	Key or Mouse Button 
+					-	Mouse Movement
+					-	Joystick Axis					
+
+
+=============================================================//
