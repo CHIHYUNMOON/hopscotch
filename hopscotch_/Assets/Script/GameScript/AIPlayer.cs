@@ -37,8 +37,6 @@ public class AIPlayer : Character
 
     public override void CharacterMove(Tile nextTile)
     {
-       
-
         if (!_gameManager._isGameEnd)
         {
 

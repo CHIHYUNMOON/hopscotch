@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static Character _Player2 { get { return _player2; } set { _player2 = value; } }
     //---------------------------------------------------------------------------------------------------------
     private MapController _mapController;
+    public MapController _MapController { get { return _mapController; } set { _mapController = value; } }
     private UIManager _uIManager;
     public static int _turnNumber=0;
     private static int _level = 1;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     //---------------------------------------------------------------------------------------------------------
     public static bool _isGameStart=false;
     public bool _isGameEnd = false;
+    public static bool _isCharChoosen;
     public static int _Level  { get { return _level; } }
 
     //---------------------------------------------------------------------------------------------------------
@@ -30,11 +32,9 @@ public class GameManager : MonoBehaviour
     private GameObject[] CharacterArr;
     
     //---------------------------------------------------------------------------------------------------------
-
-
     private Tile _nextTile;
     public Tile _NextTile { get { return _nextTile; } set { _nextTile = value; } }
-
+    public static int _PlayerCharacter { get; set; }
 
     IEnumerator TurnChanger()
     {

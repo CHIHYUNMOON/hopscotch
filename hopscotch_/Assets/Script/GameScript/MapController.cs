@@ -112,6 +112,7 @@ public class MapController : MonoBehaviour
 
     private void Awake()
     {
+        
         CreateMapArr(GameManager._Level);      
     }
 

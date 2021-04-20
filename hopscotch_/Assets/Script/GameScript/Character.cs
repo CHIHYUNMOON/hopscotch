@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public abstract class Character : MonoBehaviour 
 {
@@ -14,9 +16,13 @@ public abstract class Character : MonoBehaviour
     public int PlayerScore { get { return _playerScore; } set { _playerScore = value; } }
     //---------------------------------------------------------------------------------
     protected MapController _mapController;
+    public MapController _MapController { get { return _mapController; } set { _mapController = value; } }
     protected UIManager _uIManager;
+    public UIManager _UIManager { get { return _uIManager; } set { _uIManager = value; } }
     protected GameManager _gameManager;
+    public GameManager _GameManager { get { return _gameManager; }set { _gameManager = value; } }
     protected Animator _animator;
+    public Animator _Animator { get { return _animator; }set { _animator = value; } }
     public Animator Animator { get { return _animator; } }
     protected int[] _playerLocationIndex;
     public int[] _PlayerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }
@@ -214,13 +220,8 @@ public abstract class Character : MonoBehaviour
     {
         if (!GameManager._isGameStart) 
         {
-            if (GameManager._IsPlayer1Turn)
-            {
-                GameManager._Player1 = this;
-            }
-            else {
-                GameManager._Player2 = this;
-            }
+            GameManager._Player1 = this;
+            SceneManager.LoadScene("MainStage");
         }
     
     }
