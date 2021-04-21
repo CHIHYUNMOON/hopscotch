@@ -78,13 +78,14 @@ public class MapController : MonoBehaviour
     }
 
 
-    public void CreateCharacter(Tile FirstTile)
+    public void CreateCharacter(Tile FirstTile , GameObject PlayerPrefab)
     {
         if (GameManager._IsPlayer1Turn) 
         {
             _playerInstance = Instantiate(PlayerPrefab);
             _playerInstance.transform.position = FirstTile.gameObject.transform.position + Vector3.up * 1.0f;
             _playerInstance.GetComponent<Character>()._PlayerLocationIndex = FirstTile.TileLocationIndex;
+            GameManager._Player1 = _playerInstance.GetComponent<Character>();
         }
         else if (GameManager._IsPlayer2Turn)
         {
@@ -106,6 +107,7 @@ public class MapController : MonoBehaviour
             _aiInstance = Instantiate(AIPrefab);
             _aiInstance.transform.position = FirstTile.gameObject.transform.position + Vector3.up * 1.0f;
             _aiInstance.GetComponent<Character>()._PlayerLocationIndex = FirstTile.TileLocationIndex;
+            GameManager._Player2 = _aiInstance.GetComponent<Character>();
         }
     }
 

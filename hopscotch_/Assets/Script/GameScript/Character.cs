@@ -22,7 +22,7 @@ public abstract class Character : MonoBehaviour
     protected GameManager _gameManager;
     public GameManager _GameManager { get { return _gameManager; }set { _gameManager = value; } }
     protected Animator _animator;
-    public Animator _Animator { get { return _animator; }set { _animator = value; } }
+    
     public Animator Animator { get { return _animator; } }
     protected int[] _playerLocationIndex;
     public int[] _PlayerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }

@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - AIPlayer
+    - CharacterButton
     - GameManager
     - LobbyManager
     - MapController
@@ -10,12 +11,21 @@ ScriptsOnlyBuild:
     - UIManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
@@ -32,35 +42,59 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 21
       Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 11272}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11380}
     - Class: 114
-      Script: {instanceID: 11504}
+      Script: {instanceID: 11432}
     - Class: 114
-      Script: {instanceID: 11894}
+      Script: {instanceID: 11472}
     - Class: 114
-      Script: {instanceID: 12198}
+      Script: {instanceID: 11862}
     - Class: 114
-      Script: {instanceID: 12284}
+      Script: {instanceID: 12166}
     - Class: 114
-      Script: {instanceID: 12766}
+      Script: {instanceID: 12252}
     - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 12734}
+    - Class: 114
+      Script: {instanceID: 13046}
+    - Class: 114
+      Script: {instanceID: 13084}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 137
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -116,31 +150,31 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 11272}
     - Class: 114
-      Script: {instanceID: 11464}
+      Script: {instanceID: 11432}
     - Class: 114
-      Script: {instanceID: 11504}
+      Script: {instanceID: 11472}
     - Class: 114
-      Script: {instanceID: 11772}
+      Script: {instanceID: 11740}
     - Class: 114
-      Script: {instanceID: 11876}
+      Script: {instanceID: 11844}
     - Class: 114
-      Script: {instanceID: 11894}
+      Script: {instanceID: 11862}
     - Class: 114
-      Script: {instanceID: 11984}
+      Script: {instanceID: 11952}
     - Class: 114
-      Script: {instanceID: 12102}
+      Script: {instanceID: 12070}
     - Class: 114
-      Script: {instanceID: 12284}
+      Script: {instanceID: 12252}
     - Class: 114
-      Script: {instanceID: 12434}
+      Script: {instanceID: 12402}
     - Class: 114
-      Script: {instanceID: 12766}
+      Script: {instanceID: 12734}
     - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 13084}
     - Class: 114
-      Script: {instanceID: 13162}
+      Script: {instanceID: 13130}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -196,6 +230,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayerQuitHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 0c4726aee24b16692975d893802dd700
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CharacterButton
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -432,7 +472,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 692ce9ff4763878dffab3a8c3b15bf7c
+      Hash: 73385e0bf406792b302ef64a07cf5621
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -626,4 +666,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Lobby.unity
   - Assets/Scenes/MainStage.unity
-  playerPath: C:/Users/Moon/hopscotch/hopscotch_/hopscotch_.exe
+  playerPath: C:/Users/Moon/hopscotch/---/hopscotch_.exe

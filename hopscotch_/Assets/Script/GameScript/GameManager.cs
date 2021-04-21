@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     //---------------------------------------------------------------------------------------------------------
     [SerializeField]
-    private GameObject[] CharacterArr;
+    private  GameObject[] CharacterArr;
     
     //---------------------------------------------------------------------------------------------------------
     private Tile _nextTile;
@@ -55,12 +55,12 @@ public class GameManager : MonoBehaviour
                     //Creat Player & AI
                     if (_isPlayer1Turn)
                     {                       
-                        _mapController.CreateCharacter(_nextTile);
+                        _mapController.CreateCharacter(_nextTile, CharacterArr[_PlayerCharacter]);
                     }
                     else if(_isPlayer2Turn)
                     {
                         yield return new WaitForSeconds(1.0f);
-                        _mapController.CreateCharacter(null);
+                        _mapController.CreateCharacter(null ,CharacterArr[0]);
                         _turnNumber++; 
                     }
                     _isPlayer1Turn = !_isPlayer1Turn;

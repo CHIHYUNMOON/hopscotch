@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 3279379309229112623}
   - component: {fileID: -5703646899180468538}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Police
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,6 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684235d387558db45b86fa7bda640870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isYouSelectTile: 0
+  _isMove: 0
+  _isYourTurn: 0
 --- !u!1 &8619338778009079855
 GameObject:
   m_ObjectHideFlags: 0
