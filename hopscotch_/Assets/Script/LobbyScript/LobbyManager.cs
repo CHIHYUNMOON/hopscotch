@@ -22,6 +22,7 @@ public class LobbyManager : MonoBehaviour
         StartPressed = true;
         TitleUI.SetActive(false);
         BeforeGameStartUI.SetActive(true);
+        StartCoroutine(CameraMove());
         
     }
     public void SelectWoman()
@@ -56,9 +57,37 @@ public class LobbyManager : MonoBehaviour
             SceneManager.LoadScene("MainStage");
         }
     }
+    public void ReturnToTitle() {
+        StartPressed = false;
+        TitleUI.SetActive(true);
+        BeforeGameStartUI.SetActive(false);
+        StartCoroutine(CameraMove());
+    }
     public void ExitGame() {
         Application.Quit();
     }
 
+    IEnumerator CameraMove() 
+    {
+        if (StartPressed)
+        {
+            while (LobbyCamera.transform.position.z <= -7.0f)
+            {
+                LobbyCamera.transform.position += Vector3.forward * 0.1f;
+                yield return null;
+            }
+            yield return null;
+        }
+        else if (!StartPressed)
+        {
+            while (LobbyCamera.transform.position.z >= -10.0f) {
+                LobbyCamera.transform.position -= Vector3.forward * 0.1f;
+                yield return null;
+            }
+        }
+
+
+        StopCoroutine(CameraMove());
+    }
     
 }

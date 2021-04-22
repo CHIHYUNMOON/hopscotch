@@ -14,13 +14,8 @@ public class UIManager : MonoBehaviour
     private Text _AIScore;
     public Text AIScore { get { return _AIScore; } set { _AIScore = value; } }
 
-    [SerializeField]
-    private Button _restartBT;
-    public Button RestartBT { get { return _restartBT; } set { _restartBT = value; } }
-    [SerializeField]
-    private Button _toMainMenuBT;
-    public Button ToMainMenuBT { get { return _toMainMenuBT; } set { _toMainMenuBT = value; } }
-
+    public GameObject EndGameUI;
+    public GameObject MenuUI;
 
     public void Restart()
     {
@@ -32,13 +27,15 @@ public class UIManager : MonoBehaviour
     }
     private void Awake()
     {
-        _restartBT.gameObject.SetActive(false);
-        _toMainMenuBT.gameObject.SetActive(false);
+        EndGameUI = GameObject.Find("GameEndUI");
+        MenuUI = GameObject.Find("MenuUI");
+        EndGameUI.SetActive(false);
+        MenuUI.SetActive(false);
+        
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void OpenMenu() {
+        MenuUI.SetActive(true);
     }
 
     // Update is called once per frame

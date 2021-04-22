@@ -146,8 +146,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Draw");
             }
-            _uIManager.ToMainMenuBT.gameObject.SetActive(true);
-            _uIManager.RestartBT.gameObject.SetActive(true);           
+            _uIManager.EndGameUI.SetActive(true);
+                    
         }    
     }
 
