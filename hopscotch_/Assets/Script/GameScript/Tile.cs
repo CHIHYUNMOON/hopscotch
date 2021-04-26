@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     private AIPlayer aIPlayer;
     public int[] TileLocationIndex;
     public GameManager _gameManager;
-
+    private AudioSource audioSource;
     private void Awake()
     {
         _score = UnityEngine.Random.Range(1, 6);
@@ -31,12 +31,15 @@ public class Tile : MonoBehaviour
         _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         TileLocationIndex = new int[2];
-
+        audioSource = GetComponent<AudioSource>();
     }
 
-    
 
-    
+
+    private void OnMouseEnter() {
+        audioSource.Play();
+        
+    }
 
 
     private void OnMouseDown()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -9,21 +10,23 @@ public class LobbyManager : MonoBehaviour
     GameObject TitleUI;
     GameObject BeforeGameStartUI;
     GameObject LobbyCamera;
-
+    SoundManager soundManager;
+   
     private void Awake()
     {
         TitleUI = GameObject.Find("Title");
         BeforeGameStartUI = GameObject.Find("BeforeGameStart");
         LobbyCamera = GameObject.Find("Main Camera");
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         BeforeGameStartUI.SetActive(false); 
     }
     public void StartGame() 
     {
+        soundManager.PlayMouseDown();
         StartPressed = true;
         TitleUI.SetActive(false);
         BeforeGameStartUI.SetActive(true);
-        StartCoroutine(CameraMove());
-        
+        StartCoroutine(CameraMove());        
     }
     public void SelectWoman()
     {
@@ -58,12 +61,14 @@ public class LobbyManager : MonoBehaviour
         }
     }
     public void ReturnToTitle() {
+        soundManager.PlayMouseDown();
         StartPressed = false;
         TitleUI.SetActive(true);
         BeforeGameStartUI.SetActive(false);
         StartCoroutine(CameraMove());
     }
     public void ExitGame() {
+        soundManager.PlayMouseDown();
         Application.Quit();
     }
 
@@ -85,8 +90,6 @@ public class LobbyManager : MonoBehaviour
                 yield return null;
             }
         }
-
-
         StopCoroutine(CameraMove());
     }
     
