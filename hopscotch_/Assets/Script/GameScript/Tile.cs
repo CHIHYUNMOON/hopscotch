@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     private AIPlayer aIPlayer;
     public int[] TileLocationIndex;
     public GameManager _gameManager;
-    private AudioSource audioSource;
+    private SoundManager soundManager;
     private void Awake()
     {
         _score = UnityEngine.Random.Range(1, 6);
@@ -31,14 +31,19 @@ public class Tile : MonoBehaviour
         _mapController = GameObject.Find("MapController").GetComponent<MapController>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         TileLocationIndex = new int[2];
-        audioSource = GetComponent<AudioSource>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
 
 
     private void OnMouseEnter() {
-        audioSource.Play();
-        
+        if (!_isOccupied && GameManager._IsPlayer1Turn)
+        { 
+            if( GameManager._turnNumber == 0)
+                soundManager.PlayMouseEnter();
+           else if (GameManager._Player1.CheckTileCanMove().Contains(this) )
+            soundManager.PlayMouseEnter();
+        }   
     }
 
 
@@ -47,7 +52,8 @@ public class Tile : MonoBehaviour
         if (GameManager._turnNumber == 0)
         {
             GameManager._isGameStart = true;                
-            _gameManager._NextTile = this;               
+            _gameManager._NextTile = this;
+            soundManager.PlayMouseDown();
         }
         if (GameManager._Player1 == null || GameManager._Player2 == null)
             return;
@@ -60,6 +66,7 @@ public class Tile : MonoBehaviour
                 _gameManager._NextTile = this;
                 GameManager._Player1._isYouSelectTile = true;
                 GameManager._Player1._PlayerLocationIndex = TileLocationIndex;
+                soundManager.PlayMouseDown();
             }
         }
         else if (GameManager._Player2.CheckTileCanMove().Contains(this) && GameManager._IsPlayer2Turn) //Distance between tiles is about 1.0f
@@ -71,6 +78,7 @@ public class Tile : MonoBehaviour
                 _gameManager._NextTile = this;
                 GameManager._Player2._isYouSelectTile = true;
                 GameManager._Player2._PlayerLocationIndex = TileLocationIndex;
+                soundManager.PlayMouseDown();
             }
         }     
     }

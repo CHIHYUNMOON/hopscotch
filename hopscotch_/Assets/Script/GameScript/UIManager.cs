@@ -16,14 +16,26 @@ public class UIManager : MonoBehaviour
 
     public GameObject EndGameUI;
     public GameObject MenuUI;
+    private SoundManager soundManager;
 
+    private void MainStageLoader() {
+        SceneManager.LoadScene("MainStage");
+    }
+    private void LobbyLoader() {
+        SceneManager.LoadScene("Lobby");
+    }
     public void Restart()
     {
-        SceneManager.LoadScene("MainStage");
+        soundManager.PlayMouseDown();
+       
+        Invoke("MainStageLoader", 0.1f);
     }
     public void ToMainMenu()
     {
-        SceneManager.LoadScene("Lobby");
+        soundManager.PlayMouseDown();
+        
+        Invoke("LobbyLoader", 0.1f);
+
     }
     private void Awake()
     {
@@ -31,13 +43,16 @@ public class UIManager : MonoBehaviour
         MenuUI = GameObject.Find("MenuUI");
         EndGameUI.SetActive(false);
         MenuUI.SetActive(false);
-        
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
-    // Start is called before the first frame update
+   
     public void OpenMenu() {
         MenuUI.SetActive(true);
+        soundManager.PlayMouseDown();
     }
-
-    // Update is called once per frame
+    public void CloseMenu() {
+        MenuUI.SetActive(false);
+        soundManager.PlayMouseDown();
+    }
    
 }

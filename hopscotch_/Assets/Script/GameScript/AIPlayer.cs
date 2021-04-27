@@ -56,7 +56,9 @@ public class AIPlayer : Character
                     {
                         _animator.SetBool("isMoving", true);
                         gameObject.transform.position += LookDirection.normalized * Time.deltaTime *1.0f;
-
+                        if (!_audioSource.isPlaying) {
+                            _audioSource.Play();
+                        }
 
                     }
                     else
@@ -66,6 +68,7 @@ public class AIPlayer : Character
                         _isYourTurn = false;
                         GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
                         GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
+                        _audioSource.Stop();
                     }
                 }
                 

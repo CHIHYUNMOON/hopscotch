@@ -14,6 +14,7 @@ public class LobbyManager : MonoBehaviour
    
     private void Awake()
     {
+        StartPressed = false;
         TitleUI = GameObject.Find("Title");
         BeforeGameStartUI = GameObject.Find("BeforeGameStart");
         LobbyCamera = GameObject.Find("Main Camera");
@@ -69,9 +70,12 @@ public class LobbyManager : MonoBehaviour
     }
     public void ExitGame() {
         soundManager.PlayMouseDown();
+        Invoke("SealQuit", 0.2f);
+    }
+    private void SealQuit()
+    {
         Application.Quit();
     }
-
     IEnumerator CameraMove() 
     {
         if (StartPressed)

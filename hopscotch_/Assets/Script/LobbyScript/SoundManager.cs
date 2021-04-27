@@ -6,8 +6,9 @@ public class SoundManager : MonoBehaviour
 {
     public AudioClip MouseEnter;
     public AudioClip MouseDown;
+    
     public AudioSource audioSource;
-
+    
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -20,4 +21,5 @@ public class SoundManager : MonoBehaviour
         audioSource.clip = MouseDown;
         audioSource.Play(0);
     }
+    
 }

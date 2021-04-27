@@ -22,7 +22,7 @@ public abstract class Character : MonoBehaviour
     protected GameManager _gameManager;
     public GameManager _GameManager { get { return _gameManager; }set { _gameManager = value; } }
     protected Animator _animator;
-    
+    protected AudioSource _audioSource;
     public Animator Animator { get { return _animator; } }
     protected int[] _playerLocationIndex;
     public int[] _PlayerLocationIndex { get { return _playerLocationIndex; } set { _playerLocationIndex = value; } }
@@ -45,6 +45,7 @@ public abstract class Character : MonoBehaviour
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     
@@ -68,7 +69,8 @@ public abstract class Character : MonoBehaviour
                     _animator.SetBool("isMoving", true);
                     gameObject.transform.position += LookDirection.normalized * Time.deltaTime *1.0f ;
                     _isMove = true;
-           
+                    if(!_audioSource.isPlaying)
+                    _audioSource.Play();
                 }
                 else
                 {
@@ -79,6 +81,7 @@ public abstract class Character : MonoBehaviour
                     GameManager._IsPlayer1Turn = !GameManager._IsPlayer1Turn;
                     GameManager._IsPlayer2Turn = !GameManager._IsPlayer2Turn;
                     _isMove = false;
+                    _audioSource.Stop();
                 }
             }
 
