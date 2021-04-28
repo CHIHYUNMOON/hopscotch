@@ -9,6 +9,7 @@ public class LobbyManager : MonoBehaviour
     public static bool StartPressed = false;
     GameObject TitleUI;
     GameObject BeforeGameStartUI;
+    GameObject ModeSelectUI;
     GameObject LobbyCamera;
     SoundManager soundManager;
    
@@ -17,17 +18,19 @@ public class LobbyManager : MonoBehaviour
         StartPressed = false;
         TitleUI = GameObject.Find("Title");
         BeforeGameStartUI = GameObject.Find("BeforeGameStart");
+        ModeSelectUI = GameObject.Find("ModeSelect");
         LobbyCamera = GameObject.Find("Main Camera");
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        BeforeGameStartUI.SetActive(false); 
+        BeforeGameStartUI.SetActive(false);
+        ModeSelectUI.SetActive(false);
     }
     public void StartGame() 
     {
         soundManager.PlayMouseDown();
-        StartPressed = true;
+        
         TitleUI.SetActive(false);
-        BeforeGameStartUI.SetActive(true);
-        StartCoroutine(CameraMove());        
+        ModeSelectUI.SetActive(true);
+                
     }
     public void SelectWoman()
     {
@@ -66,11 +69,28 @@ public class LobbyManager : MonoBehaviour
         StartPressed = false;
         TitleUI.SetActive(true);
         BeforeGameStartUI.SetActive(false);
+        ModeSelectUI.SetActive(false);
         StartCoroutine(CameraMove());
     }
     public void ExitGame() {
         soundManager.PlayMouseDown();
         Invoke("SealQuit", 0.2f);
+    }
+
+    public void SoloMode() {
+        soundManager.PlayMouseDown();
+        ModeSelectUI.SetActive(false);
+        BeforeGameStartUI.SetActive(true);
+        StartPressed = true;
+        StartCoroutine(CameraMove());
+    }
+
+    public void DuoMode() {
+        soundManager.PlayMouseDown();
+        ModeSelectUI.SetActive(false);
+        BeforeGameStartUI.SetActive(true);
+        StartPressed = true;
+        StartCoroutine(CameraMove());
     }
     private void SealQuit()
     {

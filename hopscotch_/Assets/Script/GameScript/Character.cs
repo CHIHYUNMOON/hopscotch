@@ -219,14 +219,6 @@ public abstract class Character : MonoBehaviour
         CharacterMove(_gameManager._NextTile);
     }
 
-    protected virtual void OnMouseDown() 
-    {
-        if (!GameManager._isGameStart) 
-        {
-            GameManager._Player1 = this;
-            SceneManager.LoadScene("MainStage");
-        }
-    
-    }
+  
 
 }

@@ -37,7 +37,7 @@ public class MapController : MonoBehaviour
     public int[] _AIFirstLocationIndex { get { return AIFirstLocationIndex; } }
     //----------------------------------------------------------
 
-    //Method
+    
     public void CreateMapArr(int level) 
     {        
         _sidelength = level + 4;

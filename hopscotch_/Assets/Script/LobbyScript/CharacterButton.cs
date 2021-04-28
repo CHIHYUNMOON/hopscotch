@@ -20,6 +20,7 @@ public class CharacterButton : MonoBehaviour
     private void OnMouseExit() 
     {
         this.GetComponent<Animator>().SetBool("isMouseON", false);
+        
     }
 
     private void OnMouseDown()

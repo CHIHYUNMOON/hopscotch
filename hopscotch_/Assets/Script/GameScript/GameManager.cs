@@ -38,21 +38,15 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TurnChanger()
     {
-
         while (!_isGameEnd)
         {
             if (!_isGameStart) {
-                //Choose Char
-
-
                 yield return null;
             }
-               
             else
             {
                 if (_turnNumber == 0)
                 {
-                    //Creat Player & AI
                     if (_isPlayer1Turn)
                     {                       
                         _mapController.CreateCharacter(_nextTile, CharacterArr[_PlayerCharacter]);
@@ -82,7 +76,7 @@ public class GameManager : MonoBehaviour
 
                     else if (_isPlayer2Turn )
                     {
-                        _player2._isYourTurn = _IsPlayer2Turn;
+                        _player2._isYourTurn = _isPlayer2Turn;
                         Debug.Log("Start Player2 Turn");
                         yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f,2.0f));
                         if (!_player2 is AIPlayer)
