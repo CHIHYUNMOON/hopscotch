@@ -8,20 +8,25 @@ public class LobbyManager : MonoBehaviour
 {
     public static bool StartPressed = false;
     GameObject TitleUI;
-    GameObject BeforeGameStartUI;
+    GameObject _1PlayerMode;
+    GameObject _2PlayerMode;
     GameObject ModeSelectUI;
     GameObject LobbyCamera;
     SoundManager soundManager;
+    public static int Mode;
    
     private void Awake()
     {
         StartPressed = false;
+        Mode = 0;
         TitleUI = GameObject.Find("Title");
-        BeforeGameStartUI = GameObject.Find("BeforeGameStart");
+        _1PlayerMode = GameObject.Find("1Player");
+        _2PlayerMode = GameObject.Find("2Player");
         ModeSelectUI = GameObject.Find("ModeSelect");
         LobbyCamera = GameObject.Find("Main Camera");
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        BeforeGameStartUI.SetActive(false);
+        _1PlayerMode.SetActive(false);
+        _2PlayerMode.SetActive(false);
         ModeSelectUI.SetActive(false);
     }
     public void StartGame() 
@@ -29,46 +34,62 @@ public class LobbyManager : MonoBehaviour
         soundManager.PlayMouseDown();
         
         TitleUI.SetActive(false);
-        ModeSelectUI.SetActive(true);
-                
+        ModeSelectUI.SetActive(true);               
     }
     public void SelectWoman()
     {
-        if (StartPressed)
+        if (Mode == 1)
         {
-            GameManager._PlayerCharacter = 1;
+            GameManager._Player1Character = 1;
+            SceneManager.LoadScene("MainStage");
+        }
+        else if (Mode == 2) 
+        {
             SceneManager.LoadScene("MainStage");
         }
     }
     public void SelectBatboy()
     {
-        if (StartPressed)
+        if (Mode==1)
         {
-            GameManager._PlayerCharacter = 2;
+            GameManager._Player1Character = 2;
+            SceneManager.LoadScene("MainStage");
+        }
+        else if (Mode == 2)
+        {
             SceneManager.LoadScene("MainStage");
         }
     }
     public void SelectMan()
     {
-        if (StartPressed)
+        if (Mode==1)
         {
-            GameManager._PlayerCharacter = 3;
+            GameManager._Player1Character = 3;
+            SceneManager.LoadScene("MainStage");
+        }
+        else if (Mode == 2)
+        {
             SceneManager.LoadScene("MainStage");
         }
     }
     public void SelectPolice()
     {
-        if (StartPressed)
+        if (Mode==1)
         {
-            GameManager._PlayerCharacter = 4;
+            GameManager._Player1Character = 4;
+            SceneManager.LoadScene("MainStage");
+        }
+        else if (Mode == 2)
+        {
             SceneManager.LoadScene("MainStage");
         }
     }
-    public void ReturnToTitle() {
+    public void ReturnToTitle() 
+    {
         soundManager.PlayMouseDown();
         StartPressed = false;
         TitleUI.SetActive(true);
-        BeforeGameStartUI.SetActive(false);
+        _1PlayerMode.SetActive(false);
         ModeSelectUI.SetActive(false);
         StartCoroutine(CameraMove());
     }
@@ -78,18 +99,21 @@ public class LobbyManager : MonoBehaviour
     }
 
     public void SoloMode() {
+        Mode = 1;
         soundManager.PlayMouseDown();
         ModeSelectUI.SetActive(false);
-        BeforeGameStartUI.SetActive(true);
+        _1PlayerMode.SetActive(true);
         StartPressed = true;
         StartCoroutine(CameraMove());
     }
 
-    public void DuoMode() {
+    public void DuoMode() 
+    {
+        Mode = 2;
         soundManager.PlayMouseDown();
         ModeSelectUI.SetActive(false);
-        BeforeGameStartUI.SetActive(true);
-        StartPressed = true;
+        _2PlayerMode.SetActive(true);
+        
         StartCoroutine(CameraMove());
     }
     private void SealQuit()

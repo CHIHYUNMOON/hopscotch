@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     //---------------------------------------------------------------------------------------------------------
     public static bool _isGameStart=false;
     public bool _isGameEnd = false;
-    public static bool _isCharChoosen;
+    public static bool _isPlayer2GameStart;
     public static int _Level  { get { return _level; } }
 
     //---------------------------------------------------------------------------------------------------------
@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
     //---------------------------------------------------------------------------------------------------------
     private Tile _nextTile;
     public Tile _NextTile { get { return _nextTile; } set { _nextTile = value; } }
-    public static int _PlayerCharacter { get; set; }
-
+    public static int _Player1Character { get; set; }
+    public static int _Player2Character { get; set; }
     IEnumerator TurnChanger()
     {
         while (!_isGameEnd)
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (_isPlayer1Turn)
                     {                       
-                        _mapController.CreateCharacter(_nextTile, CharacterArr[_PlayerCharacter]);
+                        _mapController.CreateCharacter(_nextTile, CharacterArr[_Player1Character]);
                     }
                     else if(_isPlayer2Turn)
                     {
@@ -95,6 +95,71 @@ public class GameManager : MonoBehaviour
             
     }
 
+    IEnumerator TwoPlayerTurnChanger() {
+        while (!_isGameEnd) 
+        {
+            if (!_isGameStart)
+            {
+                yield return null;
+            }
+            else 
+            {
+                if (_turnNumber == 0) 
+                {
+                    if (_isPlayer1Turn)
+                    {
+                        Debug.Log("Start Player1 Turn");
+                        _mapController.CreateCharacter(_nextTile, CharacterArr[_Player1Character]);
+                        yield return new WaitUntil(()=>_isPlayer2GameStart);
+                        Debug.Log("End Player1 Turn");
+                    }
+                    else
+                    {
+                        _mapController.CreateCharacter(_nextTile, CharacterArr[_Player2Character]);
+                        Debug.Log("End Player1 Turn");
+                        _turnNumber++;
+
+                    }
+                    _isPlayer1Turn = !_isPlayer1Turn;
+                    _isPlayer2Turn = !_isPlayer1Turn;
+                }
+                else if (_turnNumber > 0)
+                {
+                    if (_isPlayer1Turn)
+                    {
+                        _player1._isYourTurn = _isPlayer1Turn;
+                        //Player1 turn
+                        Debug.Log("Start Player1 Turn");
+                        yield return new WaitUntil(() => _player1._isYouSelectTile);
+                        yield return new WaitUntil(() => !_player1._isYourTurn);
+                        yield return new WaitUntil(() => !_player1._isMove);
+                        Debug.Log("End Player1 Turn");
+                    }
+
+                    else if (_isPlayer2Turn)
+                    {
+                        _player2._isYourTurn = _isPlayer2Turn;
+                        Debug.Log("Start Player2 Turn");
+                        yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2.0f));
+                        if (!_player2 is AIPlayer)
+                            yield return new WaitUntil(() => _player2._isYouSelectTile);
+                        yield return new WaitUntil(() => !_player2._isYourTurn);
+                        yield return new WaitUntil(() => !_player2._isMove);
+                        Debug.Log("End Player2 Turn");
+                        _turnNumber++;
+                    }
+                    EndGame();
+                }
+
+
+
+            }
+
+            yield return null;
+        }
+
+        yield return null;
+    }
 
 
     private void EndGame()
@@ -156,13 +221,15 @@ public class GameManager : MonoBehaviour
         _isPlayer2Turn = false;
         _isGameEnd = false;
         _isGameStart = false;
+        _isPlayer2GameStart = false;
     }
 
     private void Start()
     {
-        
-        StartCoroutine(TurnChanger());
-      
+        if (LobbyManager.Mode == 1)
+            StartCoroutine(TurnChanger());
+        else if (LobbyManager.Mode == 2)
+            StartCoroutine(TwoPlayerTurnChanger()); 
     }
     private void Update()
     {

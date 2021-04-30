@@ -49,11 +49,15 @@ public class Tile : MonoBehaviour
 
     private void OnMouseDown()
     {       
+
         if (GameManager._turnNumber == 0)
         {
             GameManager._isGameStart = true;                
             _gameManager._NextTile = this;
             soundManager.PlayMouseDown();
+            if (GameManager._IsPlayer2Turn) {
+                GameManager._isPlayer2GameStart = true;
+            }
         }
         if (GameManager._Player1 == null || GameManager._Player2 == null)
             return;
