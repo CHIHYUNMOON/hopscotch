@@ -45,7 +45,16 @@ public class LobbyManager : MonoBehaviour
         }
         else if (Mode == 2) 
         {
-            SceneManager.LoadScene("MainStage");
+            if (GameManager._Player1Character == 0)
+            {
+                GameManager._Player1Character = 1;
+            }
+            else if (GameManager._Player2Character == 0) 
+            {
+                GameManager._Player2Character = 1;
+                SceneManager.LoadScene("MainStage");
+            }
+            
         }
     }
     public void SelectBatboy()
@@ -57,7 +66,15 @@ public class LobbyManager : MonoBehaviour
         }
         else if (Mode == 2)
         {
-            SceneManager.LoadScene("MainStage");
+            if (GameManager._Player1Character == 0)
+            {
+                GameManager._Player1Character = 2;
+            }
+            else if (GameManager._Player2Character == 0)
+            {
+                GameManager._Player2Character = 2;
+                SceneManager.LoadScene("MainStage");
+            }
         }
     }
     public void SelectMan()
@@ -69,7 +86,15 @@ public class LobbyManager : MonoBehaviour
         }
         else if (Mode == 2)
         {
-            SceneManager.LoadScene("MainStage");
+            if (GameManager._Player1Character == 0)
+            {
+                GameManager._Player1Character = 3;
+            }
+            else if (GameManager._Player2Character == 0)
+            {
+                GameManager._Player2Character = 3;
+                SceneManager.LoadScene("MainStage");
+            }
         }
     }
     public void SelectPolice()
@@ -81,15 +106,25 @@ public class LobbyManager : MonoBehaviour
         }
         else if (Mode == 2)
         {
-            SceneManager.LoadScene("MainStage");
+            if (GameManager._Player1Character == 0)
+            {
+                GameManager._Player1Character = 4;
+            }
+            else if (GameManager._Player2Character == 0)
+            {
+                GameManager._Player2Character = 4;
+                SceneManager.LoadScene("MainStage");
+            }
         }
     }
     public void ReturnToTitle() 
     {
         soundManager.PlayMouseDown();
         StartPressed = false;
+        Mode = 0;
         TitleUI.SetActive(true);
         _1PlayerMode.SetActive(false);
+        _2PlayerMode.SetActive(false);
         ModeSelectUI.SetActive(false);
         StartCoroutine(CameraMove());
     }
@@ -122,7 +157,7 @@ public class LobbyManager : MonoBehaviour
     }
     IEnumerator CameraMove() 
     {
-        if (StartPressed)
+        if (Mode==1 || Mode==2)
         {
             while (LobbyCamera.transform.position.z <= -7.0f)
             {
@@ -131,7 +166,7 @@ public class LobbyManager : MonoBehaviour
             }
             yield return null;
         }
-        else if (!StartPressed)
+        else 
         {
             while (LobbyCamera.transform.position.z >= -10.0f) {
                 LobbyCamera.transform.position -= Vector3.forward * 0.1f;

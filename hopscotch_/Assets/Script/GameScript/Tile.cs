@@ -103,9 +103,6 @@ public class Tile : MonoBehaviour
                 Renderer.material.color = Color.blue;                
             }
             _isOccupied = true;
-        }
-        
-        
-        
+        }      
     }
 }
