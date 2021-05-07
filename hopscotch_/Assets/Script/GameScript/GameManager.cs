@@ -110,12 +110,13 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("Start Player1 Turn");
                         _mapController.CreateCharacter(_nextTile, CharacterArr[_Player1Character]);
-                        yield return new WaitUntil(()=>_isPlayer2GameStart);
+          
                         Debug.Log("End Player1 Turn");
                     }
                     else
                     {
                         Debug.Log("Start Player2 Turn");
+                        yield return new WaitUntil(() => _isPlayer2GameStart);
                         _mapController.CreateCharacter(_nextTile, CharacterArr[_Player2Character]);
                         
                         Debug.Log("End Player2 Turn");
@@ -148,6 +149,7 @@ public class GameManager : MonoBehaviour
                         Debug.Log("End Player2 Turn");
                         _turnNumber++;
                     }
+
                     EndGame();
                 }
 
@@ -222,6 +224,8 @@ public class GameManager : MonoBehaviour
         _isGameEnd = false;
         _isGameStart = false;
         _isPlayer2GameStart = false;
+        
+
     }
 
     private void Start()

@@ -25,13 +25,13 @@ public class CharacterButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (LobbyManager.StartPressed) {
+        if (LobbyManager.Mode ==1 || LobbyManager.Mode ==2) {
             _soundManager.PlayMouseDown();
                 }
     }
     private void OnMouseUp()
     {       
-        if(LobbyManager.StartPressed)
+        if(LobbyManager.Mode == 1 || LobbyManager.Mode == 2)
         _onMouseClick.Invoke();
     }
 }

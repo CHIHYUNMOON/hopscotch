@@ -14,7 +14,13 @@ public class LobbyManager : MonoBehaviour
     GameObject LobbyCamera;
     SoundManager soundManager;
     public static int Mode;
-   
+    private bool _isPlayer1Select;
+    [SerializeField]
+    GameObject SelectFrame1Prefab;
+    [SerializeField]
+    GameObject SelectFrame2Prefab;
+    GameObject SelectFrame1;
+    GameObject SelectFrame2;
     private void Awake()
     {
         StartPressed = false;
@@ -28,6 +34,7 @@ public class LobbyManager : MonoBehaviour
         _1PlayerMode.SetActive(false);
         _2PlayerMode.SetActive(false);
         ModeSelectUI.SetActive(false);
+        _isPlayer1Select = false;
     }
     public void StartGame() 
     {
@@ -40,19 +47,26 @@ public class LobbyManager : MonoBehaviour
     {
         if (Mode == 1)
         {
-            GameManager._Player1Character = 1;
-            SceneManager.LoadScene("MainStage");
+            GameManager._Player1Character = 1;          
+            SelectFrame1 =Instantiate(SelectFrame1Prefab);
+            SelectFrame1.transform.position = new Vector3(-1, 0, 0);
+            StartCoroutine(MainStageLoader());
         }
         else if (Mode == 2) 
         {
-            if (GameManager._Player1Character == 0)
+            if (!_isPlayer1Select)
             {
                 GameManager._Player1Character = 1;
+                SelectFrame1 = Instantiate(SelectFrame1Prefab);
+                SelectFrame1.transform.position = new Vector3(-1, 0, 0);
+                _isPlayer1Select = true;
             }
-            else if (GameManager._Player2Character == 0) 
+            else 
             {
                 GameManager._Player2Character = 1;
-                SceneManager.LoadScene("MainStage");
+                SelectFrame2 = Instantiate(SelectFrame2Prefab);
+                SelectFrame2.transform.position = new Vector3(-1, 0, 0);
+                StartCoroutine(MainStageLoader());
             }
             
         }
@@ -62,18 +76,25 @@ public class LobbyManager : MonoBehaviour
         if (Mode==1)
         {
             GameManager._Player1Character = 2;
-            SceneManager.LoadScene("MainStage");
+            SelectFrame1 = Instantiate(SelectFrame1Prefab);
+            SelectFrame1.transform.position = new Vector3(1, 0, 0);
+            StartCoroutine(MainStageLoader());
         }
         else if (Mode == 2)
         {
-            if (GameManager._Player1Character == 0)
+            if (!_isPlayer1Select)
             {
                 GameManager._Player1Character = 2;
+                SelectFrame1 = Instantiate(SelectFrame1Prefab);
+                SelectFrame1.transform.position = new Vector3(1, 0, 0);
+                _isPlayer1Select = true;
             }
-            else if (GameManager._Player2Character == 0)
+            else
             {
                 GameManager._Player2Character = 2;
-                SceneManager.LoadScene("MainStage");
+                SelectFrame2 = Instantiate(SelectFrame2Prefab);
+                SelectFrame2.transform.position = new Vector3(1, 0, 0);
+                StartCoroutine(MainStageLoader());
             }
         }
     }
@@ -82,18 +103,27 @@ public class LobbyManager : MonoBehaviour
         if (Mode==1)
         {
             GameManager._Player1Character = 3;
-            SceneManager.LoadScene("MainStage");
+            
+            SelectFrame1 = Instantiate(SelectFrame1Prefab);
+            SelectFrame1.transform.position = new Vector3(-3, 0, 0);
+            StartCoroutine(MainStageLoader());
+
         }
         else if (Mode == 2)
         {
-            if (GameManager._Player1Character == 0)
+            if (!_isPlayer1Select)
             {
                 GameManager._Player1Character = 3;
+                SelectFrame1 = Instantiate(SelectFrame1Prefab);
+                SelectFrame1.transform.position = new Vector3(-3, 0, 0);
+                _isPlayer1Select = true;
             }
-            else if (GameManager._Player2Character == 0)
+            else 
             {
                 GameManager._Player2Character = 3;
-                SceneManager.LoadScene("MainStage");
+                SelectFrame2 = Instantiate(SelectFrame2Prefab);
+                SelectFrame2.transform.position = new Vector3(-3, 0, 0);
+                StartCoroutine(MainStageLoader());
             }
         }
     }
@@ -102,18 +132,26 @@ public class LobbyManager : MonoBehaviour
         if (Mode==1)
         {
             GameManager._Player1Character = 4;
-            SceneManager.LoadScene("MainStage");
+            SelectFrame1 = Instantiate(SelectFrame1Prefab);
+            SelectFrame1.transform.position = new Vector3(3, 0, 0);
+            StartCoroutine(MainStageLoader());
         }
         else if (Mode == 2)
         {
-            if (GameManager._Player1Character == 0)
+            if (!_isPlayer1Select)
             {
+                
                 GameManager._Player1Character = 4;
+                SelectFrame1 = Instantiate(SelectFrame1Prefab);
+                SelectFrame1.transform.position = new Vector3(3, 0, 0);
+                _isPlayer1Select = true;
             }
-            else if (GameManager._Player2Character == 0)
+            else 
             {
                 GameManager._Player2Character = 4;
-                SceneManager.LoadScene("MainStage");
+                SelectFrame2 = Instantiate(SelectFrame2Prefab);
+                SelectFrame2.transform.position = new Vector3(3, 0, 0);
+                StartCoroutine(MainStageLoader());
             }
         }
     }
@@ -175,5 +213,15 @@ public class LobbyManager : MonoBehaviour
         }
         StopCoroutine(CameraMove());
     }
-    
+
+    private IEnumerator MainStageLoader() {
+        Light light = GameObject.Find("Directional Light").GetComponent<Light>();
+        while (light.intensity > 0.1f) {
+            light.intensity -= 0.01f;
+            yield return null;
+        }
+        SceneManager.LoadScene("MainStage");
+        yield return null;
+    }
+
 }

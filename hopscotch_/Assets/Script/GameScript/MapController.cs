@@ -80,36 +80,42 @@ public class MapController : MonoBehaviour
 
     public void CreateCharacter(Tile FirstTile , GameObject PlayerPrefab)
     {
-        if (GameManager._IsPlayer1Turn) 
+        if (!FirstTile._isOccupied)
         {
-            _player1Instance = Instantiate(PlayerPrefab);
-            _player1Instance.transform.position = FirstTile.gameObject.transform.position + Vector3.up * 1.0f;
-            _player1Instance.GetComponent<Character>()._PlayerLocationIndex = FirstTile.TileLocationIndex;
-            GameManager._Player1 = _player1Instance.GetComponent<Character>();
-        }
-        else if (GameManager._IsPlayer2Turn)
-        {
-            if (FirstTile == null)
+            if (GameManager._IsPlayer1Turn)
             {
-                AIFirstLocationIndex = new int[2];
-                AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
-                AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
-                while (_mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>()._isOccupied)
+                _player1Instance = Instantiate(PlayerPrefab);
+                _player1Instance.transform.position = FirstTile.gameObject.transform.position + Vector3.up * 1.0f;
+                _player1Instance.GetComponent<Character>()._PlayerLocationIndex = FirstTile.TileLocationIndex;
+                _player1Instance.tag = "Player1";
+                GameManager._Player1 = _player1Instance.GetComponent<Character>();
+            }
+            else if (GameManager._IsPlayer2Turn)
+            {
+                if (FirstTile == null)
                 {
+                    AIFirstLocationIndex = new int[2];
                     AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
                     AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
-                    if (!_mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>()._isOccupied)
+                    while (_mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>()._isOccupied)
                     {
-                        break;
+                        AIFirstLocationIndex[0] = UnityEngine.Random.Range(0, _mapSize.Length);
+                        AIFirstLocationIndex[1] = UnityEngine.Random.Range(0, _mapSize[AIFirstLocationIndex[0]]);
+                        if (!_mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>()._isOccupied)
+                        {
+                            break;
+                        }
                     }
+                    FirstTile = _mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>();
                 }
+
+                //------------------------------------------------------------------------    
+                _player2Instance = Instantiate(PlayerPrefab);
+                _player2Instance.transform.position = FirstTile.gameObject.transform.position + Vector3.up * 1.0f;
+                _player2Instance.GetComponent<Character>()._PlayerLocationIndex = FirstTile.TileLocationIndex;
+                _player2Instance.tag = "Player2";
+                GameManager._Player2 = _player2Instance.GetComponent<Character>();
             }
-            FirstTile = _mapTile[AIFirstLocationIndex[0]][AIFirstLocationIndex[1]].GetComponent<Tile>();
-            //------------------------------------------------------------------------    
-            _player2Instance = Instantiate(_playerPrefab);
-            _player2Instance.transform.position = FirstTile.gameObject.transform.position + Vector3.up * 1.0f;
-            _player2Instance.GetComponent<Character>()._PlayerLocationIndex = FirstTile.TileLocationIndex;
-            GameManager._Player2 = _player2Instance.GetComponent<Character>();
         }
     }
 

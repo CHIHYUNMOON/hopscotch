@@ -94,11 +94,11 @@ public class Tile : MonoBehaviour
     {
         if (!_isOccupied)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player1"))
             {   
                 Renderer.material.color = Color.red;
             }
-            if (other.gameObject.CompareTag("AIPlayer"))
+            if (other.gameObject.CompareTag("Player2"))
             {
                 Renderer.material.color = Color.blue;                
             }

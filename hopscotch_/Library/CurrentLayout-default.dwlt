@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 703
     height: 590
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 331, y: 271}
   m_MaxSize: {x: 14001, y: 10021}
   vertical: 0
-  controlID: 157
+  controlID: 136
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 492}
   m_MaxSize: {x: 16006, y: 14042}
   vertical: 1
-  controlID: 156
+  controlID: 81
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 221}
   m_MaxSize: {x: 16006, y: 4021}
   vertical: 0
-  controlID: 102
+  controlID: 82
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -360,9 +360,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 350.5, y: 274, z: 0}
+    m_Target: {x: -2.9361331, y: 0.79403913, z: -0.28147376}
     speed: 2
-    m_Value: {x: 350.5, y: 274, z: 0}
+    m_Value: {x: -2.9361331, y: 0.79403913, z: -0.28147376}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -408,13 +408,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.069194846, y: -0.04129152, z: 0.0028663874, w: -0.9967457}
+    m_Target: {x: -0.30687279, y: 0.047653712, z: -0.015386912, w: -0.9504358}
     speed: 2
-    m_Value: {x: -0.06919474, y: -0.041291457, z: 0.002866383, w: -0.99674416}
+    m_Value: {x: -0.30687177, y: 0.047653552, z: -0.015386861, w: -0.95043266}
   m_Size:
-    m_Target: 70.71068
+    m_Target: 10.60059
     speed: 2
-    m_Value: 70.71068
+    m_Value: 10.60059
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -570,20 +570,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/PreFabs/Character
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/PreFabs/Character
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Moon\hopscotch\hopscotch_
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 40}
-    m_SelectedIDs: 06380000
-    m_LastClickedID: 14342
-    m_ExpandedIDs: 00000000e2370000e4370000e6370000e8370000ea370000ec370000ee370000f03700000838000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 323a0000
+    m_LastClickedID: 14898
+    m_ExpandedIDs: 00000000183a00001a3a00001c3a00001e3a0000203a0000223a0000243a0000263a00003a3a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -611,7 +611,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000e2370000e4370000e6370000e8370000ea370000ec370000ee370000f0370000
+    m_ExpandedIDs: 00000000183a00001a3a00001c3a00001e3a0000203a0000223a0000243a0000263a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -734,9 +734,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c0720000
-      m_LastClickedID: 29376
-      m_ExpandedIDs: b8c9ffff7ee8ffff6afbfffffc33000030340000ac340000bc340000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: b617ffff2021ffff5075fffffe97ffff44eeffff6afbffff403b0000823b0000863b00008a3b0000fe3b0000403c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
